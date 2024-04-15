@@ -1,14 +1,47 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { AuthService } from './services/auth.service';
+import { NgIf } from '@angular/common';
+import { User } from './interfaces/user';
+import { BackendService } from './services/backend.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'thesis-frontend';
+export class AppComponent implements OnInit {
+  isAuthenticated: boolean = false
+  user?: User
+
+  constructor(private authService: AuthService, private router: Router, private backendService: BackendService) { }
+
+  ngOnInit(): void {
+
+    this.router.events.subscribe(value => {
+      if (value instanceof NavigationEnd) {
+        if (this.router.url.toString() == "/login") {
+          this.authService.deleteToken()
+        }
+      }
+    })
+
+    this.authService.getObservableUserId().subscribe(userId => {
+      if (userId) {
+        this.isAuthenticated = true
+        this.backendService.getUser(userId).subscribe(user => {
+          this.user = user
+        })
+      } else {
+        this.isAuthenticated = false
+      }
+    })
+  }
+
+  logout() {
+    this.authService.deleteToken()
+    this.router.navigate(["/login"])
+  }
 }
