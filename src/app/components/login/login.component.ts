@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LoginRequest } from '../../interfaces/requests/login-request';
 import { BackendService } from '../../services/backend.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  constructor(private backendService: BackendService) { }
+  constructor(private backendService: BackendService, private router: Router, private authService: AuthService) { }
 
   loginForm = new FormGroup({
     emailAddress: new FormControl('', {nonNullable: true}),
@@ -24,8 +25,10 @@ export class LoginComponent {
         emailAddress: this.loginForm.value.emailAddress,
         password: this.loginForm.value.password
       }
-      this.backendService.login(loginRequest).subscribe(response => {
-        console.log(response)
+      this.backendService.login(loginRequest).subscribe(token => {
+        console.log(token)
+        this.authService.saveToken(token)
+        this.router.navigate(["/home"])
       })
     }
   }
