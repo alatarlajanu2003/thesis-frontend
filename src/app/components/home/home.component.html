@@ -1,6 +1,37 @@
-<p>home works!</p>
+<div class="mt-4">
+    <h2>Rented flats</h2>
 
-Rented flats
-<div *ngFor="let rentedFlat of rentedFlats">
-    {{rentedFlat.address}}
+    <div class="card-deck">
+        <div class="card bg-light" style="width: 18rem; display:inline-block; margin: 10px; border: 2px solid black;"
+            *ngFor="let flat of rentedFlats; let i = index">
+            <div class="card-body">
+                <h5 class="card-title">{{rentedFlats[i].address}}</h5>
+                <div class="card-text">
+                    Owner: {{owners[i].firstName}} {{owners[i].lastName}}
+                </div><br>
+                <a [routerLink]="['/flat-details', flat.id]" class="btn btn-dark">Details</a>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>Owned flats <button class="btn btn-light" style='border: 2px solid black;' [routerLink]='["/flat-creation"]'><i
+                class="bi bi-plus" style='font-size: 25px'></i></button></h2>
+
+    <div class="card-deck">
+        <div class="card bg-light" style="width: 18rem; display:inline-block; margin: 10px; border: 2px solid black;"
+            *ngFor="let flat of ownedFlats; let i = index">
+            <div class="card-body">
+                <h5 class="card-title">{{ownedFlats[i].address}}</h5>
+                <div class="card-text">
+                    Tenant(s):
+                    <div *ngFor="let tenant of allTenants[i]">
+                        {{tenant.firstName}} {{tenant.lastName}}
+                    </div>
+                </div><br>
+                <a [routerLink]="['/flat-details', flat.id]" class="btn btn-dark">Details</a>
+            </div>
+        </div>
+    </div>
 </div>

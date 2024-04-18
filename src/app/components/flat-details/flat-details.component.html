@@ -1,0 +1,29 @@
+<h2>Property details</h2>
+{{flat?.address}}
+
+Owner: {{owner?.firstName}} {{owner?.lastName}} {{owner?.emailAddress}} {{owner?.phoneNumber}}
+
+Tenant(s):
+<div *ngFor="let tenant of tenants">
+    {{tenant.firstName}} {{tenant.lastName}} {{tenant.emailAddress}} {{tenant.phoneNumber}}
+</div>
+
+Payments:
+<div *ngFor="let payment of payments">
+    {{payment.paymentDate}} {{payment.paymentName}}
+</div>
+
+Readings:
+<div *ngFor="let reading of readings">
+    {{reading.readingDate}} {{reading.readingName}}
+</div>
+
+<form [formGroup]="invitationForm">
+
+    <div class="form-outline form-dark mb-4">
+        <input type="text" class="form-control form-control-lg" formControlName="emailAddress" placeholder='Email' />
+    </div>
+
+    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark btn-lg px-5" type="submit"
+        (click)="invite()">Invite</button>
+</form>
