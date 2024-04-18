@@ -15,18 +15,17 @@ export class LoginComponent {
   constructor(private backendService: BackendService, private router: Router, private authService: AuthService) { }
 
   loginForm = new FormGroup({
-    emailAddress: new FormControl('', {nonNullable: true}),
-    password: new FormControl('', {nonNullable: true}),
+    emailAddress: new FormControl('', { nonNullable: true }),
+    password: new FormControl('', { nonNullable: true }),
   });
 
   login() {
-    if(this.loginForm.value.emailAddress && this.loginForm.value.password) {
+    if (this.loginForm.value.emailAddress && this.loginForm.value.password) {
       const loginRequest: LoginRequest = {
         emailAddress: this.loginForm.value.emailAddress,
         password: this.loginForm.value.password
       }
       this.backendService.login(loginRequest).subscribe(token => {
-        console.log(token)
         this.authService.saveToken(token)
         this.router.navigate(["/home"])
       })
