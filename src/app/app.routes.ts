@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FlatCreationComponent } from './components/flat-creation/flat-creation.component';
 import { FlatDetailsComponent } from './components/flat-details/flat-details.component';
 import { AcceptInvitationComponent } from './components/accept-invitation/accept-invitation.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -13,5 +14,6 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'flat-creation', component: FlatCreationComponent },
     { path: 'flat-details/:flatId', component: FlatDetailsComponent },
-    { path: 'accept-invitation/:token', component: AcceptInvitationComponent }
+    { path: 'accept-invitation/:token', component: AcceptInvitationComponent },
+    { path: 'user-details', component: UserDetailsComponent }
 ];

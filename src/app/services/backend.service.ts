@@ -9,6 +9,7 @@ import { InvitationRequest } from '../interfaces/requests/invitation-request';
 import { LoginRequest } from '../interfaces/requests/login-request';
 import { RegistrationRequest } from '../interfaces/requests/registration-request';
 import { User } from '../interfaces/user';
+import { UpdateUserRequest } from '../interfaces/requests/update-user-request';
 
 @Injectable({
   providedIn: 'root'
@@ -69,5 +70,9 @@ export class BackendService {
 
   acceptInvitation(token: AcceptInvitationRequest) {
     return this.httpClient.post(`${this.baseUrl}/acceptInvitation`, token)
+  }
+
+  updateUser(updateUserRequest: UpdateUserRequest, userId: number) {
+    return this.httpClient.post(`${this.baseUrl}/updateUser/${userId}`, updateUserRequest)
   }
 }
