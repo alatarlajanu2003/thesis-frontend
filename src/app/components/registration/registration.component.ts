@@ -18,7 +18,7 @@ export class RegistrationComponent {
     emailAddress: new FormControl('', { nonNullable: true }),
     password: new FormControl('', { nonNullable: true }),
     preferredLanguage: new FormControl('', { nonNullable: true }),
-  });
+  })
 
   constructor(private backendService: BackendService, private router: Router) {}
 
@@ -39,8 +39,7 @@ export class RegistrationComponent {
         password: this.registrationForm.value.password,
         preferredLanguage: this.registrationForm.value.preferredLanguage
       }
-      this.backendService.register(registrationRequest).subscribe(response => {
-        console.log(response)
+      this.backendService.register(registrationRequest).subscribe(() => {
         this.router.navigate(['/login'])
       })
     }
