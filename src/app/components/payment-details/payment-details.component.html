@@ -1,0 +1,36 @@
+<h2 class='mt-4'>Payments</h2>
+<div class='table-responsive'>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Name</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Payer</th>
+                <th scope="col">Status</th>
+                <th scope="col">Evidence(s)</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let payment of payments; let i = index">
+                <td scope="row">{{payment.paymentDate | date}}</td>
+                <td>{{payment.paymentName}}</td>
+                <td>{{payment.paymentAmount | currency:'HUF'}}</td>
+                <td>{{namesOfPayers[i]}}</td>
+                <td>{{payment.isAcknowledged ? "Acknowledged" : "Pending"}}</td>
+                <td></td>
+                <td>
+                    <div *ngIf="isOwner; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock>
+                        <div (click)='acknowledgePayment(payment.id)' *ngIf='!payment.isAcknowledged'
+                            style='cursor: pointer;'>Acknowledge</div>
+                    </ng-template>
+                    <ng-template #elseBlock>
+                        <div (click)='deletePayment(payment.id)' *ngIf="payment.payerId == userId" style='cursor: pointer;'> Delete </div>
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,29 +1,44 @@
-<h2>Property details</h2>
-{{flat?.address}}
+<h2 class="mt-4">Flat details</h2>
+<h5>{{flat?.address}}</h5>
 
-Owner: {{owner?.firstName}} {{owner?.lastName}} {{owner?.emailAddress}} {{owner?.phoneNumber}}
-
-Tenant(s):
-<div *ngFor="let tenant of tenants">
-    {{tenant.firstName}} {{tenant.lastName}} {{tenant.emailAddress}} {{tenant.phoneNumber}}
-</div>
-
-Payments:
-<div *ngFor="let payment of payments">
-    {{payment.paymentDate}} {{payment.paymentName}}
-</div>
-
-Readings:
-<div *ngFor="let reading of readings">
-    {{reading.readingDate}} {{reading.readingName}}
-</div>
-
-<form [formGroup]="invitationForm">
-
-    <div class="form-outline form-dark mb-4">
-        <input type="text" class="form-control form-control-lg" formControlName="emailAddress" placeholder='Email' />
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col border border-secondary p-4 bg-light" style="margin: 5px">
+            <b>Owner:</b><br>
+            <div align='right'>
+                {{owner?.firstName}} {{owner?.lastName}}
+                <div class="text-black-50">{{owner?.emailAddress}} {{owner?.phoneNumber}}</div>
+            </div><br>
+            <b>Tenant(s):</b>
+            <div *ngFor="let tenant of tenants" align='right'>
+                {{tenant.firstName}} {{tenant.lastName}} 
+                <div class="text-black-50">{{tenant.emailAddress}} {{tenant.phoneNumber}}</div>
+            </div>
+        </div>
+        <div class="col border border-secondary p-4 bg-light" style="margin: 5px">
+            <b>Payments:</b>
+            <div *ngFor="let payment of payments | slice:0:3" align='right'>
+                {{payment.paymentDate | date}} {{payment.paymentName}}
+            </div>
+            <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark" [routerLink]="['/payment-details', flatId]">See more</button></div>
+            <br>
+            <b>Readings:</b>
+            <div *ngFor="let reading of readings | slice:0:3" align='right'>
+                {{reading.readingDate | date}} {{reading.readingName}}
+            </div>
+            <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark" [routerLink]="['/reading-details', flatId]">See more</button></div>
+        </div>
     </div>
+</div>
 
-    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark btn-lg px-5" type="submit"
-        (click)="invite()">Invite</button>
-</form>
+<div align='center'>
+    <form [formGroup]="invitationForm" class='mt-4'>
+        <h5>Invite new tenant to this flat</h5>
+        <div class="mt-4 mb-4">
+            <input type="text" class="form-control-sm" formControlName="emailAddress"
+                placeholder='Email' />
+        </div>
+
+        <button class="btn btn-dark px-5" type="submit" (click)="invite()">Invite</button>
+    </form>
+</div>

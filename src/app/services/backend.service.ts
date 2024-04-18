@@ -75,4 +75,16 @@ export class BackendService {
   updateUser(updateUserRequest: UpdateUserRequest, userId: number) {
     return this.httpClient.post(`${this.baseUrl}/updateUser/${userId}`, updateUserRequest)
   }
+
+  getNameOfUser(userId: number) {
+    return this.httpClient.get<string>(`${this.baseUrl}/getNameOfUser/${userId}`)
+  }
+
+  acknowledgePayment(paymentId: number) {
+    return this.httpClient.post(`${this.baseUrl}/acknowledgePaymentEvidence/${paymentId}`, null)
+  }
+
+  deletePayment(paymentId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/deletePayment/${paymentId}`)
+  }
 }

@@ -6,14 +6,17 @@ import { FlatCreationComponent } from './components/flat-creation/flat-creation.
 import { FlatDetailsComponent } from './components/flat-details/flat-details.component';
 import { AcceptInvitationComponent } from './components/accept-invitation/accept-invitation.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
     { path: 'registration', component: RegistrationComponent },
-    { path: 'home', component: HomeComponent },
-    { path: 'flat-creation', component: FlatCreationComponent },
-    { path: 'flat-details/:flatId', component: FlatDetailsComponent },
+    { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+    { path: 'flat-creation', component: FlatCreationComponent, canActivate: [authGuard] },
+    { path: 'flat-details/:flatId', component: FlatDetailsComponent, canActivate: [authGuard] },
     { path: 'accept-invitation/:token', component: AcceptInvitationComponent },
-    { path: 'user-details', component: UserDetailsComponent }
+    { path: 'user-details', component: UserDetailsComponent, canActivate: [authGuard] },
+    { path: 'payment-details/:flatId', component: PaymentDetailsComponent, canActivate: [authGuard] }
 ];

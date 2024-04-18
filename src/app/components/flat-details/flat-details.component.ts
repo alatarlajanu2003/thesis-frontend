@@ -4,15 +4,15 @@ import { Payment } from '../../interfaces/payment';
 import { Reading } from '../../interfaces/reading';
 import { BackendService } from '../../services/backend.service';
 import { Flat } from '../../interfaces/flat';
-import { ActivatedRoute } from '@angular/router';
-import { NgFor } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { DatePipe, NgFor, SlicePipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InvitationRequest } from '../../interfaces/requests/invitation-request';
 
 @Component({
   selector: 'app-flat-details',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule],
+  imports: [NgFor, ReactiveFormsModule, DatePipe, SlicePipe, RouterLink],
   templateUrl: './flat-details.component.html'
 })
 export class FlatDetailsComponent implements OnInit {
