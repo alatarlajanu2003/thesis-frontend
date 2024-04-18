@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
     })
 
     this.authService.getObservableTokenExpiration().subscribe(() => {
+        this.authService.deleteToken()
         this.router.navigate(['/login'])
     })
   }
