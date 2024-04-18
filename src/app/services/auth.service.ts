@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, Subject, interval, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, interval, takeUntil } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class AuthService {
 
   private authTokenKey = 'AUTH_TOKEN'
   private profileId: number | null = this.getUserId()
-  private profileIdSubject: Subject<number | null> = new Subject<number | null>()
+  private profileIdSubject: BehaviorSubject<number | null> = new BehaviorSubject<number | null>(this.getUserId())
   private tokenExpirationSubject: Subject<boolean> = new Subject<boolean>()
 
   constructor(private jwtHelper: JwtHelperService) { }
