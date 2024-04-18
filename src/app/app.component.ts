@@ -1,8 +1,8 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { AuthService } from './services/auth.service';
-import { NgIf } from '@angular/common';
 import { User } from './interfaces/user';
+import { AuthService } from './services/auth.service';
 import { BackendService } from './services/backend.service';
 
 @Component({
@@ -31,12 +31,17 @@ export class AppComponent implements OnInit {
     this.authService.getObservableUserId().subscribe(userId => {
       if (userId) {
         this.isAuthenticated = true
+        this.authService.startExpirationCountDown()
         this.backendService.getUser(userId).subscribe(user => {
           this.user = user
         })
       } else {
         this.isAuthenticated = false
       }
+    })
+
+    this.authService.getObservableTokenExpiration().subscribe(() => {
+        this.router.navigate(['/login'])
     })
   }
 
