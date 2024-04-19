@@ -11,6 +11,7 @@ import { RegistrationRequest } from '../interfaces/requests/registration-request
 import { User } from '../interfaces/user';
 import { UpdateUserRequest } from '../interfaces/requests/update-user-request';
 import { PaymentCreationRequest } from '../interfaces/requests/payment-creation-request';
+import { EvidenceUploadRequest } from '../interfaces/requests/evidence-upload-request';
 
 @Injectable({
   providedIn: 'root'
@@ -81,15 +82,23 @@ export class BackendService {
     return this.httpClient.get<string>(`${this.baseUrl}/getNameOfUser/${userId}`)
   }
 
-  acknowledgePayment(paymentId: number) {
-    return this.httpClient.post(`${this.baseUrl}/acknowledgePaymentEvidence/${paymentId}`, null)
-  }
-
   deletePayment(paymentId: number) {
     return this.httpClient.delete(`${this.baseUrl}/deletePayment/${paymentId}`)
   }
 
   createPayment(paymentCreationRequest: PaymentCreationRequest) {
     return this.httpClient.post(`${this.baseUrl}/createPayment`, paymentCreationRequest)
+  }
+
+  uploadPaymentEvidence(paymentEvidenceUploadRequest: EvidenceUploadRequest, paymentId: number) {
+    return this.httpClient.post(`${this.baseUrl}/uploadPaymentEvidence/${paymentId}`, paymentEvidenceUploadRequest)
+  }
+
+  deletePaymentEvidence(paymentId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/deletePaymentEvidence/${paymentId}`)
+  }
+
+  acknowledgePaymentEvidence(paymentId: number) {
+    return this.httpClient.post(`${this.baseUrl}/acknowledgePaymentEvidence/${paymentId}`, null)
   }
 }
