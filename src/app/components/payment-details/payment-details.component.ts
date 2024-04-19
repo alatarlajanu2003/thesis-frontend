@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { BackendService } from '../../services/backend.service';
-import { ActivatedRoute } from '@angular/router';
-import { Payment } from '../../interfaces/payment';
 import { CurrencyPipe, DatePipe, NgFor, NgIf } from '@angular/common';
-import { User } from '../../interfaces/user';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Flat } from '../../interfaces/flat';
+import { Payment } from '../../interfaces/payment';
 import { AuthService } from '../../services/auth.service';
+import { BackendService } from '../../services/backend.service';
 
 @Component({
   selector: 'app-payment-details',
   standalone: true,
-  imports: [NgFor, DatePipe, CurrencyPipe, NgIf],
+  imports: [NgFor, DatePipe, CurrencyPipe, NgIf, RouterLink],
   templateUrl: './payment-details.component.html'
 })
 export class PaymentDetailsComponent implements OnInit {

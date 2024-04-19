@@ -10,6 +10,7 @@ import { LoginRequest } from '../interfaces/requests/login-request';
 import { RegistrationRequest } from '../interfaces/requests/registration-request';
 import { User } from '../interfaces/user';
 import { UpdateUserRequest } from '../interfaces/requests/update-user-request';
+import { PaymentCreationRequest } from '../interfaces/requests/payment-creation-request';
 
 @Injectable({
   providedIn: 'root'
@@ -86,5 +87,9 @@ export class BackendService {
 
   deletePayment(paymentId: number) {
     return this.httpClient.delete(`${this.baseUrl}/deletePayment/${paymentId}`)
+  }
+
+  createPayment(paymentCreationRequest: PaymentCreationRequest) {
+    return this.httpClient.post(`${this.baseUrl}/createPayment`, paymentCreationRequest)
   }
 }

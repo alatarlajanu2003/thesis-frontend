@@ -27,10 +27,13 @@
                             style='cursor: pointer;'>Acknowledge</div>
                     </ng-template>
                     <ng-template #elseBlock>
-                        <div (click)='deletePayment(payment.id)' *ngIf="payment.payerId == userId" style='cursor: pointer;'> Delete </div>
+                        <div (click)='deletePayment(payment.id)' *ngIf="payment.payerId == userId"
+                            style='cursor: pointer;'> Delete </div>
                     </ng-template>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    <button *ngIf="!isOwner" class="btn btn-dark px-5" type="submit" [routerLink]="['/payment-creation', flatId]">Add new</button>
 </div>
