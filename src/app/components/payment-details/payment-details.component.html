@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let payment of paymentsWithImageUrl; let i = index" align='center' class='align-middle'>
-                <td scope="row">{{payment.paymentDate | date}}</td>
+                <td>{{payment.paymentDate | date}}</td>
                 <td>{{payment.paymentName}}</td>
                 <td>{{payment.paymentAmount | currency:'HUF'}}</td>
                 <td>{{namesOfPayers[i]}}</td>
