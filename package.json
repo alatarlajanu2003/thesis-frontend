@@ -20,6 +20,7 @@
     "@angular/router": "^17.1.0",
     "@auth0/angular-jwt": "^5.2.0",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0-rc.2",
+    "ag-charts-angular": "^9.2.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "rxjs": "~7.8.0",
