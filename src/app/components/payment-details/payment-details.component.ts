@@ -76,12 +76,14 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   uploadPaymentEvidence(paymentId: number): void {
-    this.imageService.uploadPaymentEvidence(paymentId, this.selectedFile)
-  }
+      this.imageService.uploadPaymentEvidence(paymentId, this.selectedFile)
+    }
 
   deletePaymentEvidence(paymentId: number) {
     this.backendService.deletePaymentEvidence(paymentId).subscribe(() => {
-      window.location.reload()
+      if (this.flatId) {
+        this.refreshPaymentData(this.flatId)
+      }
     })
   }
 
