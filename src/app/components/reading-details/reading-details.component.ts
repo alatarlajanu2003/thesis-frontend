@@ -30,6 +30,12 @@ export class ReadingDetailsComponent implements OnInit {
   gasChartOptions: any
   electricityChartOptions: any
 
+  myTheme = {
+    palette: {
+      fills: ['#555']
+    }
+  };
+
   constructor(
     private backendService: BackendService,
     private activatedRoute: ActivatedRoute,
@@ -43,18 +49,21 @@ export class ReadingDetailsComponent implements OnInit {
       this.userId = this.authService.getUserId()
 
       this.waterChartOptions = {
+        theme: this.myTheme,
         data: [],
         series: [
           { type: 'bar', xKey: 'month', yKey: 'water' }
         ]
       }
       this.gasChartOptions = {
+        theme: this.myTheme,
         data: [],
         series: [
           { type: 'bar', xKey: 'month', yKey: 'gas' }
         ]
       }
       this.electricityChartOptions = {
+        theme: this.myTheme,
         data: [],
         series: [
           { type: 'bar', xKey: 'month', yKey: 'electricity' }
@@ -115,16 +124,19 @@ export class ReadingDetailsComponent implements OnInit {
 
   refreshChartOptionsData(waterChartOptions: any, gasChartOptions: any, electricityChartOptions: any) {
     this.waterChartOptions = {
+      theme: waterChartOptions.theme,
       data: waterChartOptions.data,
       series: waterChartOptions.series
     }
 
     this.gasChartOptions = {
+      theme: gasChartOptions.theme,
       data: gasChartOptions.data,
       series: gasChartOptions.series
     }
 
     this.electricityChartOptions = {
+      theme: electricityChartOptions.theme,
       data: electricityChartOptions.data,
       series: electricityChartOptions.series
     }
