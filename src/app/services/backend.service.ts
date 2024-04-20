@@ -12,6 +12,7 @@ import { User } from '../interfaces/user';
 import { UpdateUserRequest } from '../interfaces/requests/update-user-request';
 import { PaymentCreationRequest } from '../interfaces/requests/payment-creation-request';
 import { EvidenceUploadRequest } from '../interfaces/requests/evidence-upload-request';
+import { ReadingCreationRequest } from '../interfaces/requests/reading-creation-request';
 
 @Injectable({
   providedIn: 'root'
@@ -82,12 +83,13 @@ export class BackendService {
     return this.httpClient.get<string>(`${this.baseUrl}/getNameOfUser/${userId}`)
   }
 
-  deletePayment(paymentId: number) {
-    return this.httpClient.delete(`${this.baseUrl}/deletePayment/${paymentId}`)
-  }
 
   createPayment(paymentCreationRequest: PaymentCreationRequest) {
     return this.httpClient.post(`${this.baseUrl}/createPayment`, paymentCreationRequest)
+  }
+
+  deletePayment(paymentId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/deletePayment/${paymentId}`)
   }
 
   uploadPaymentEvidence(paymentEvidenceUploadRequest: EvidenceUploadRequest, paymentId: number) {
@@ -100,5 +102,25 @@ export class BackendService {
 
   acknowledgePaymentEvidence(paymentId: number) {
     return this.httpClient.post(`${this.baseUrl}/acknowledgePaymentEvidence/${paymentId}`, null)
+  }
+
+  createReading(paymentCreationRequest: ReadingCreationRequest) {
+    return this.httpClient.post(`${this.baseUrl}/createReading`, paymentCreationRequest)
+  }
+
+  deleteReading(readingId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/deleteReading/${readingId}`)
+  }
+
+  uploadReadingEvidence(readingEvidenceUploadRequest: EvidenceUploadRequest, readingId: number) {
+    return this.httpClient.post(`${this.baseUrl}/uploadReadingEvidence/${readingId}`, readingEvidenceUploadRequest)
+  }
+
+  deleteReadingEvidence(readingId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/deleteReadingEvidence/${readingId}`)
+  }
+
+  acknowledgeReadingEvidence(readingId: number) {
+    return this.httpClient.post(`${this.baseUrl}/acknowledgeReadingEvidence/${readingId}`, null)
   }
 }

@@ -9,6 +9,8 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
 import { authGuard } from './guards/auth.guard';
 import { PaymentCreationComponent } from './components/payment-creation/payment-creation.component';
+import { ReadingDetailsComponent } from './components/reading-details/reading-details.component';
+import { ReadingCreationComponent } from './components/reading-creation/reading-creation.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -20,5 +22,7 @@ export const routes: Routes = [
     { path: 'accept-invitation/:token', component: AcceptInvitationComponent },
     { path: 'user-details', component: UserDetailsComponent, canActivate: [authGuard] },
     { path: 'payment-details/:flatId', component: PaymentDetailsComponent, canActivate: [authGuard] },
-    { path: 'payment-creation/:flatId', component: PaymentCreationComponent, canActivate: [authGuard] }
+    { path: 'payment-creation/:flatId', component: PaymentCreationComponent, canActivate: [authGuard] },
+    { path: 'reading-details/:flatId', component: ReadingDetailsComponent, canActivate: [authGuard] },
+    { path: 'reading-creation/:flatId', component: ReadingCreationComponent, canActivate: [authGuard] }
 ];

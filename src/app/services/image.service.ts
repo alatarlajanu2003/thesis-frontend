@@ -4,6 +4,7 @@ import { Payment } from '../interfaces/payment';
 import { PaymentWithImageUrl } from '../interfaces/payment-with-image-url';
 import { EvidenceUploadRequest } from '../interfaces/requests/evidence-upload-request';
 import { Reading } from '../interfaces/reading';
+import { ReadingEnriched } from '../interfaces/reading-enriched';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,22 @@ export class ImageService {
     }
   }
 
+  uploadReadingEvidence(readingId: number, file: File) {
+    const reader = new FileReader()
+    reader.readAsArrayBuffer(file)
+    reader.onload = () => {
+      const readingEvidenceUploadRequest: EvidenceUploadRequest = {
+        imageName: file.name,
+        imageContent: this.arrayBufferToByteArray(reader.result as ArrayBuffer),
+        imageContentType: file.type
+      }
+
+      this.backendService.uploadReadingEvidence(readingEvidenceUploadRequest, readingId).subscribe(() => {
+        window.location.reload()
+      })
+    }
+  }
+
   getEvidenceUrl(object: Payment | Reading) {
     if (object.imageContent && object.imageContentType) {
       const blob = new Blob([new Uint8Array(object.imageContent)], { type: object.imageContentType })
@@ -63,5 +80,27 @@ export class ImageService {
       paymentsWithImageUrl.push(paymentWithImageUrl)
     }
     return paymentsWithImageUrl
+  }
+
+  initializeReadingsWithImageUrl(readings: Reading[]) {
+    const readingsWithImageUrl: ReadingEnriched[] = []
+    for (let reading of readings) {
+      const readingWithImageUrl: ReadingEnriched = {
+        id: reading.id,
+        flatId: reading.flatId,
+        readerId: reading.readerId,
+        readingDate: reading.readingDate,
+        readingName: reading.readingName,
+        readingAmount: reading.readingAmount,
+        isAcknowledged: reading.isAcknowledged,
+        imageName: reading.imageName,
+        imageContent: reading.imageContent,
+        imageContentType: reading.imageContentType,
+        imageUrl: this.getEvidenceUrl(reading),
+        consumption: 0
+      }
+      readingsWithImageUrl.push(readingWithImageUrl)
+    }
+    return readingsWithImageUrl
   }
 }

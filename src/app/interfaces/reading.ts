@@ -1,7 +1,7 @@
 export interface Reading {
     id: number,
     flatId: string,
-    readingId: number,
+    readerId: number,
     readingDate: string,
     readingName: string,
     readingAmount: number,
