@@ -85,58 +85,51 @@ export class ReadingDetailsComponent implements OnInit {
       }
       this.readingsEnriched = this.imageService.initializeReadingsWithImageUrl(readings)
       this.calculateConsumption(this.readingsEnriched)
-
       this.initializeCharts()
     })
   }
 
   initializeCharts() {
-    let waterMonths: string[] = []
-    let gasMonths: string[] = []
-    let electricityMonths: string[] = []
+    let months: string[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     this.waterChartOptions.data = []
     this.gasChartOptions.data = []
     this.electricityChartOptions.data = []
+    let currentYear = new Date().getFullYear().toString()
 
-    for (let reading of this.readingsEnriched) {
-      const monthAsString = new Date(reading.readingDate).toString().split(' ')[1]
-      if (reading.readingName == 'Water' && !(monthAsString in waterMonths)) {
-        waterMonths.push(monthAsString)
-      } else if (reading.readingName == 'Gas' && !(monthAsString in gasMonths)) {
-        gasMonths.push(monthAsString)
-      } else if (reading.readingName == 'Electricity' && !(monthAsString in electricityMonths)) {
-        electricityMonths.push(monthAsString)
-      }
+    for (let month of months) {
+      this.waterChartOptions.data.push({ month: month, water: this.getConsumption('Water', month, currentYear) })
+      this.gasChartOptions.data.push({ month: month, gas: this.getConsumption('Gas', month, currentYear) })
+      this.electricityChartOptions.data.push({ month: month, electricity: this.getConsumption('Electricity', month, currentYear) })
     }
 
-    for (let waterMonth of waterMonths) {
-      const consumption = this.readingsEnriched.filter(r => new Date(r.readingDate).toString().split(' ')[1] == waterMonth && r.readingName == 'Water').map(r => r.consumption).reduce((a, b) => a + b)
-      this.waterChartOptions.data.push({ month: waterMonth, water: consumption })
-    }
+    console.log(this.electricityChartOptions.data)
 
-    for (let gasMonth of gasMonths) {
-      const consumption = this.readingsEnriched.filter(r => new Date(r.readingDate).toString().split(' ')[1] == gasMonth && r.readingName == 'Gas').map(r => r.consumption).reduce((a, b) => a + b)
-      this.gasChartOptions.data.push({ month: gasMonth, gas: consumption })
-    }
+    this.refreshChartOptionsData(this.waterChartOptions, this.gasChartOptions, this.electricityChartOptions)
+  }
 
-    for (let electricityMonth of electricityMonths) {
-      const consumption = this.readingsEnriched.filter(r => new Date(r.readingDate).toString().split(' ')[1] == electricityMonth && r.readingName == 'Electricity').map(r => r.consumption).reduce((a, b) => a + b)
-      this.electricityChartOptions.data.push({ month: electricityMonth, electricity: consumption })
-    }
+  getConsumption(readingType: string, month: string, year: string): number {
+    return this.readingsEnriched.filter(r => {
+      const readingDate = new Date(r.readingDate).toString().split(' ')
+      return readingDate[3] == year && readingDate[1] == month && r.readingName == readingType
+    })
+      .map(r => r.consumption)
+      .reduce((a, b) => a + b, 0)
+  }
 
+  refreshChartOptionsData(waterChartOptions: any, gasChartOptions: any, electricityChartOptions: any) {
     this.waterChartOptions = {
-      data: this.waterChartOptions.data,
-      series: this.waterChartOptions.series
+      data: waterChartOptions.data,
+      series: waterChartOptions.series
     }
 
     this.gasChartOptions = {
-      data: this.gasChartOptions.data,
-      series: this.gasChartOptions.series
+      data: gasChartOptions.data,
+      series: gasChartOptions.series
     }
 
     this.electricityChartOptions = {
-      data: this.electricityChartOptions.data,
-      series: this.electricityChartOptions.series
+      data: electricityChartOptions.data,
+      series: electricityChartOptions.series
     }
   }
 
