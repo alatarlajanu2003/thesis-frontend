@@ -1,39 +1,37 @@
 <section class="vh-100">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card bg-dark text-white" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center">
-  
-              <div class="mb-md-5 mt-md-4">
-  
-                <h2 class="fw-bold mb-5 text-uppercase">New Reading</h2>
-  
-                <form [formGroup]="readingCreationForm">
-  
-                  <div class="form-outline form-white mb-4">
-                    <!-- <input type="text" class="form-control form-control-lg" formControlName="readingName"
-                      placeholder='Reading name' /> -->
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
 
-                      <select class="form-select form-control form-control-lg" formControlName='readingName'>
-                        <option selected>Water</option>
+            <div class="mb-md-5 mt-md-4">
+
+              <h2 class="fw-bold mb-5 text-uppercase">New Reading</h2>
+
+              <form [formGroup]="readingCreationForm">
+
+                <div class="form-outline form-white mb-4">
+
+                  <select class="form-select form-control form-control-lg" formControlName='readingName'>
+                    <option selected>Water</option>
                         <option value="Gas">Gas</option>
                         <option value="Electricity">Electricity</option>
-                      </select>
-                  </div>
-  
-                  <div class="form-outline form-white mb-4">
+                  </select>
+                </div>
+
+                <div class="form-outline form-white mb-4">
                     <input type="text" class="form-control form-control-lg"  formControlName="readingAmount" placeholder='Reading amount' />
-                  </div>
-  
-                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
-                    type="submit" (click)="createReading()">Create</button>
-  
-                </form>
-              </div>
+                </div>
+
+                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
+                  type="submit" (click)="createReading()">Create</button>
+
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
