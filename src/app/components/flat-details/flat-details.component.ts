@@ -8,6 +8,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe, NgFor, SlicePipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { InvitationRequest } from '../../interfaces/requests/invitation-request';
+import { Reminder } from '../../interfaces/reminder';
 
 @Component({
   selector: 'app-flat-details',
@@ -22,6 +23,7 @@ export class FlatDetailsComponent implements OnInit {
   tenants: Array<User> = []
   payments: Array<Payment> = []
   readings: Array<Reading> = []
+  reminders: Array<Reminder> = []
 
   constructor(private backendService: BackendService, private activatedRoute: ActivatedRoute) { }
 
@@ -50,7 +52,26 @@ export class FlatDetailsComponent implements OnInit {
       this.backendService.getReadings(this.flatId).subscribe(readings => {
         this.readings = readings
       })
+      this.backendService.getReminders(this.flatId).subscribe(reminders => {
+        this.reminders = this.getHumanReadableFrequency(reminders)
+      })
     }
+  }
+
+  getHumanReadableFrequency(reminders: Reminder[]): Reminder[] {
+    const remindersWithHumanReadableFrequency: Reminder[] = []
+    for(let reminder of reminders) {
+      const dayOfMonth: string = reminder.reminderFrequency.split(' ')[3]
+      const monthFrequency: string = reminder.reminderFrequency.split(' ')[4].split('/')[1]
+      
+      remindersWithHumanReadableFrequency.push({
+        id: reminder.id,
+        flatId: reminder.flatId,
+        reminderName: reminder.reminderName,
+        reminderFrequency: `Every ${monthFrequency} month(s) on day ${dayOfMonth}`
+      })
+    }
+    return remindersWithHumanReadableFrequency
   }
 
   invite() {

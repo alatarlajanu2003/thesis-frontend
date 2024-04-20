@@ -1,0 +1,55 @@
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <div class="mt-md-4">
+
+                            <h2 class="fw-bold mb-5 text-uppercase">New Reminder</h2>
+
+                            <form [formGroup]="reminderCreationForm">
+
+                                <div class="form-outline form-white mb-4">
+                                    <input type="text" class="form-control form-control-lg"
+                                        formControlName="reminderName" placeholder='Reminder name' />
+                                </div>
+
+                                <div class='row d-flex align-items-center'>
+                                    <div class='col' align='center' style='padding-right: 0;'>
+                                        Repeat every
+                                    </div>
+
+                                    <div class='col' align='center' style='padding: 0;'>
+                                        <select class="form-select form-control form-control-sm" style='width: 70px;'
+                                            formControlName='monthFrequency'>
+                                            <option *ngFor='let i of possibleMonthFrequences'>{{i}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class='col' align='center' style='padding: 0;'>
+                                        month on day
+                                    </div>
+
+                                    <div class='col' align='center' style='padding: 0;'>
+                                        <select class="form-select form-control form-control-sm" style='width: 70px;'
+                                            formControlName='dayOfMonth'>
+                                            <option *ngFor='let i of possibleDaysOfMonth'>{{i}}</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                            <button data-mdb-button-init data-mdb-ripple-init
+                                class="btn btn-outline-light btn-lg mt-4 px-5" type="submit"
+                                (click)="createReminder()">Create</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

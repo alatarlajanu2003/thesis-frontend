@@ -27,6 +27,12 @@
                 {{reading.readingDate | date}} {{reading.readingName}}
             </div>
             <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark" [routerLink]="['/reading-details', flatId]">See more</button></div>
+            <br>
+            <b>Reminders:</b>
+            <div *ngFor="let reminder of reminders | slice:0:3" align='right'>
+               {{reminder.reminderFrequency}} - {{reminder.reminderName}}
+            </div>
+            <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark" [routerLink]="['/reminder-details', flatId]">See more</button></div>
         </div>
     </div>
 </div>

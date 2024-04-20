@@ -11,6 +11,8 @@ import { authGuard } from './guards/auth.guard';
 import { PaymentCreationComponent } from './components/payment-creation/payment-creation.component';
 import { ReadingDetailsComponent } from './components/reading-details/reading-details.component';
 import { ReadingCreationComponent } from './components/reading-creation/reading-creation.component';
+import { ReminderDetailsComponent } from './components/reminder-details/reminder-details.component';
+import { ReminderCreationComponent } from './components/reminder-creation/reminder-creation.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -24,5 +26,7 @@ export const routes: Routes = [
     { path: 'payment-details/:flatId', component: PaymentDetailsComponent, canActivate: [authGuard] },
     { path: 'payment-creation/:flatId', component: PaymentCreationComponent, canActivate: [authGuard] },
     { path: 'reading-details/:flatId', component: ReadingDetailsComponent, canActivate: [authGuard] },
-    { path: 'reading-creation/:flatId', component: ReadingCreationComponent, canActivate: [authGuard] }
+    { path: 'reading-creation/:flatId', component: ReadingCreationComponent, canActivate: [authGuard] },
+    { path: 'reminder-details/:flatId', component: ReminderDetailsComponent, canActivate: [authGuard] },
+    { path: 'reminder-creation/:flatId', component: ReminderCreationComponent, canActivate: [authGuard] }
 ];

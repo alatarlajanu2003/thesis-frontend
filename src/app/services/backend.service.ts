@@ -13,6 +13,8 @@ import { UpdateUserRequest } from '../interfaces/requests/update-user-request';
 import { PaymentCreationRequest } from '../interfaces/requests/payment-creation-request';
 import { EvidenceUploadRequest } from '../interfaces/requests/evidence-upload-request';
 import { ReadingCreationRequest } from '../interfaces/requests/reading-creation-request';
+import { Reminder } from '../interfaces/reminder';
+import { ReminderCreationRequest } from '../interfaces/requests/reminder-creation-request';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +65,10 @@ export class BackendService {
     return this.httpClient.get<Array<Reading>>(`${this.baseUrl}/getReadings/${flatId}`)
   }
 
+  getReminders(flatId: number) {
+    return this.httpClient.get<Array<Reminder>>(`${this.baseUrl}/getReminders/${flatId}`)
+  }
+
   getFlat(flatId: number) {
     return this.httpClient.get<Flat>(`${this.baseUrl}/getFlat/${flatId}`)
   }
@@ -82,7 +88,6 @@ export class BackendService {
   getNameOfUser(userId: number) {
     return this.httpClient.get<string>(`${this.baseUrl}/getNameOfUser/${userId}`)
   }
-
 
   createPayment(paymentCreationRequest: PaymentCreationRequest) {
     return this.httpClient.post(`${this.baseUrl}/createPayment`, paymentCreationRequest)
@@ -123,4 +128,13 @@ export class BackendService {
   acknowledgeReadingEvidence(readingId: number) {
     return this.httpClient.post(`${this.baseUrl}/acknowledgeReadingEvidence/${readingId}`, null)
   }
+
+  deleteReminder(reminderId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/deleteReminder/${reminderId}`)
+  }
+
+  createReminder(reminderCreationRequest: ReminderCreationRequest) {
+    return this.httpClient.post(`${this.baseUrl}/createReminder`, reminderCreationRequest)
+  }
+
 }

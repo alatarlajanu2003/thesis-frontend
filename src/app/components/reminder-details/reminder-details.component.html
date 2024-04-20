@@ -1,0 +1,23 @@
+<h2 class='mt-4'>Reminders</h2>
+<div class='table-responsive'>
+    <table class="table">
+        <thead class="thead-light">
+            <tr align='center'>
+                <th scope="col">Name</th>
+                <th scope="col">Frequency</th>
+                <th scope="col" *ngIf="isOwner">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let reminder of reminders; let i = index" align='center' class='align-middle'>
+                <td>{{reminder.reminderName}}</td>
+                <td>{{reminder.reminderFrequency}}</td>
+                <td *ngIf="isOwner" align='center'>
+                    <div style='cursor: pointer;' (click)="deleteReminder(reminder.id)"><i class="bi bi-trash" style='font-size: 25px;'></i></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button *ngIf="isOwner" class="btn btn-dark px-5" type="submit" [routerLink]="['/reminder-creation', flatId]">Add new</button>
+</div>
