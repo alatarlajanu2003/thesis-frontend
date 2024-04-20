@@ -101,8 +101,6 @@ export class ReadingDetailsComponent implements OnInit {
       this.electricityChartOptions.data.push({ month: month, electricity: this.getConsumption('Electricity', month, currentYear) })
     }
 
-    console.log(this.electricityChartOptions.data)
-
     this.refreshChartOptionsData(this.waterChartOptions, this.gasChartOptions, this.electricityChartOptions)
   }
 
