@@ -30,7 +30,6 @@ export class ReadingDetailsComponent implements OnInit {
   gasChartOptions: any
   electricityChartOptions: any
 
-
   constructor(
     private backendService: BackendService,
     private activatedRoute: ActivatedRoute,
