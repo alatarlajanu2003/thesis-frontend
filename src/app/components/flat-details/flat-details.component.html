@@ -11,7 +11,7 @@
             </div><br>
             <b>Tenant(s):</b>
             <div *ngFor="let tenant of tenants" align='right'>
-                {{tenant.firstName}} {{tenant.lastName}} 
+                {{tenant.firstName}} {{tenant.lastName}}
                 <div class="text-black-50">{{tenant.emailAddress}} {{tenant.phoneNumber}}</div>
             </div>
         </div>
@@ -20,19 +20,22 @@
             <div *ngFor="let payment of payments | slice:0:3" align='right'>
                 {{payment.paymentDate | date}} {{payment.paymentName}}
             </div>
-            <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark" [routerLink]="['/payment-details', flatId]">See more</button></div>
+            <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark"
+                    [routerLink]="['/payment-details', flatId]">See more</button></div>
             <br>
             <b>Readings:</b>
             <div *ngFor="let reading of readings | slice:0:3" align='right'>
                 {{reading.readingDate | date}} {{reading.readingName}}
             </div>
-            <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark" [routerLink]="['/reading-details', flatId]">See more</button></div>
+            <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark"
+                    [routerLink]="['/reading-details', flatId]">See more</button></div>
             <br>
             <b>Reminders:</b>
             <div *ngFor="let reminder of reminders | slice:0:3" align='right'>
-               {{reminder.reminderFrequency}} - {{reminder.reminderName}}
+                {{reminder.reminderFrequency}} - {{reminder.reminderName}}
             </div>
-            <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark" [routerLink]="['/reminder-details', flatId]">See more</button></div>
+            <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark"
+                    [routerLink]="['/reminder-details', flatId]">See more</button></div>
         </div>
     </div>
 </div>
@@ -41,13 +44,17 @@
     <form [formGroup]="invitationForm" class='mt-4'>
         <h5>Invite new tenant to this flat</h5>
         <div class="mt-4 mb-4">
-            <input type="text" class="form-control-sm" formControlName="emailAddress"
-                placeholder='Email' />
+            <input type="text" class="form-control-sm" formControlName="emailAddress" placeholder='Email' />
+            <div *ngIf="emailAddress?.touched || emailAddress?.dirty">
+                <div class="p-0 text-danger" *ngIf="emailAddress?.errors?.['required']">
+                    Email address is required!
+                </div>
                 <div class="p-0 text-danger" *ngIf="emailAddress?.errors?.['email']">
                     Invalid email address!
                 </div>
+            </div>
         </div>
 
-        <button class="btn btn-dark px-5" type="submit" (click)="invite()">Invite</button>
+        <button class="btn btn-dark px-5" type="submit" (click)="invite()"  [disabled]='invitationForm.invalid'>Invite</button>
     </form>
 </div>

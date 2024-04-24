@@ -29,6 +29,7 @@ export class FlatDetailsComponent implements OnInit {
 
   invitationForm = new FormGroup({
     emailAddress: new FormControl('', [
+      Validators.required,
       Validators.email
     ])
   })
