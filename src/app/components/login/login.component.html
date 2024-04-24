@@ -11,21 +11,25 @@
                 <div class="form-outline form-white mb-4">
                   <input type="email" class="form-control form-control-lg" formControlName="emailAddress"
                     placeholder='Email' />
-                  <div class="p-0 text-danger" *ngIf="emailAddress?.errors?.['required']">
-                    Email address is required!
+                  <div *ngIf="emailAddress?.touched || emailAddress?.dirty">
+                    <div class="p-0 text-danger" *ngIf="emailAddress?.errors?.['required']">
+                      Email address is required!
+                    </div>
                   </div>
                 </div>
 
                 <div class="form-outline form-white mb-4">
                   <input type="password" class="form-control form-control-lg" formControlName="password"
                     placeholder='Password' />
-                  <div class="p-0 text-danger" *ngIf="password?.errors?.['required']">
-                    Password is required!
+                  <div *ngIf="password?.touched || password?.dirty">
+                    <div class="p-0 text-danger" *ngIf="password?.errors?.['required']">
+                      Password is required!
+                    </div>
                   </div>
                 </div>
 
                 <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
-                  type="submit" (click)="login()">Login</button>
+                  type="submit" (click)="login()" [disabled]='loginForm.invalid'>Login</button>
               </form>
             </div>
             <div>

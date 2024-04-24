@@ -11,28 +11,31 @@
                 <div class="form-outline form-white mb-4">
                   <input type="text" class="form-control form-control-lg" formControlName="paymentName"
                     placeholder='Payment name' />
-                  <div class="p-0 text-danger" *ngIf="paymentName?.errors?.['required']">
-                    Payment name is required!
-                  </div>
-                  <div class="p-0 text-danger" *ngIf="paymentName?.errors?.['maxlength']">
-                    Payment name must be no longer than 28 characters!
+                  <div *ngIf="paymentName?.touched || paymentName?.dirty">
+                    <div class="p-0 text-danger" *ngIf="paymentName?.errors?.['required']">
+                      Payment name is required!
+                    </div>
+                    <div class="p-0 text-danger" *ngIf="paymentName?.errors?.['maxlength']">
+                      Payment name must be no longer than 28 characters!
+                    </div>
                   </div>
                 </div>
-
 
                 <div class="form-outline form-white mb-4">
                   <input type="number" min='0' class="form-control form-control-lg" formControlName="paymentAmount"
                     placeholder='Payment amount' />
-                  <div class="p-0 text-danger" *ngIf="paymentAmount?.errors?.['required']">
-                    Payment amount is required!
-                  </div>
-                  <div class="p-0 text-danger" *ngIf="paymentAmount?.errors?.['pattern']">
-                    Payment amount must be a positive number!
+                  <div *ngIf="paymentAmount?.touched || paymentAmount?.dirty">
+                    <div class="p-0 text-danger" *ngIf="paymentAmount?.errors?.['required']">
+                      Payment amount is required!
+                    </div>
+                    <div class="p-0 text-danger" *ngIf="paymentAmount?.errors?.['pattern']">
+                      Payment amount must be a positive number!
+                    </div>
                   </div>
                 </div>
 
                 <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
-                  type="submit" (click)="createPayment()">Create</button>
+                  type="submit" (click)="createPayment()" [disabled]='paymentCreationForm.invalid'>Create</button>
 
               </form>
             </div>
