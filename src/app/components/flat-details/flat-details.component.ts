@@ -5,15 +5,15 @@ import { Reading } from '../../interfaces/reading';
 import { BackendService } from '../../services/backend.service';
 import { Flat } from '../../interfaces/flat';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { DatePipe, NgFor, SlicePipe } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { DatePipe, NgFor, NgIf, SlicePipe } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InvitationRequest } from '../../interfaces/requests/invitation-request';
 import { Reminder } from '../../interfaces/reminder';
 
 @Component({
   selector: 'app-flat-details',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule, DatePipe, SlicePipe, RouterLink],
+  imports: [NgFor, ReactiveFormsModule, DatePipe, SlicePipe, RouterLink, NgIf],
   templateUrl: './flat-details.component.html'
 })
 export class FlatDetailsComponent implements OnInit {
@@ -28,8 +28,14 @@ export class FlatDetailsComponent implements OnInit {
   constructor(private backendService: BackendService, private activatedRoute: ActivatedRoute) { }
 
   invitationForm = new FormGroup({
-    emailAddress: new FormControl('', {nonNullable: true})
-  });
+    emailAddress: new FormControl('', [
+      Validators.email
+    ])
+  })
+
+  get emailAddress() {
+    return this.invitationForm.get('emailAddress')
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {

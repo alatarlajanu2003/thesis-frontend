@@ -43,6 +43,9 @@
         <div class="mt-4 mb-4">
             <input type="text" class="form-control-sm" formControlName="emailAddress"
                 placeholder='Email' />
+                <div class="p-0 text-danger" *ngIf="emailAddress?.errors?.['email']">
+                    Invalid email address!
+                </div>
         </div>
 
         <button class="btn btn-dark px-5" type="submit" (click)="invite()">Invite</button>
