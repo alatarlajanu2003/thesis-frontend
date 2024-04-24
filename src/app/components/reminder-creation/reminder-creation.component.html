@@ -4,16 +4,21 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
-
                         <div class="mt-md-4">
-
                             <h2 class="fw-bold mb-5 text-uppercase">New Reminder</h2>
-
                             <form [formGroup]="reminderCreationForm">
 
                                 <div class="form-outline form-white mb-4">
                                     <input type="text" class="form-control form-control-lg"
                                         formControlName="reminderName" placeholder='Reminder name' />
+                                    <div *ngIf="reminderName?.touched || reminderName?.dirty">
+                                        <div class="p-0 text-danger" *ngIf="reminderName?.errors?.['required']">
+                                            Reminder name is required!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="reminderName?.errors?.['maxlength']">
+                                            Reminder name must be no longer than 28 characters!
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class='row d-flex align-items-center'>
@@ -26,6 +31,11 @@
                                             formControlName='monthFrequency'>
                                             <option *ngFor='let i of possibleMonthFrequences'>{{i}}</option>
                                         </select>
+                                        <div *ngIf="monthFrequency?.touched || monthFrequency?.dirty">
+                                            <div class="p-0 text-danger" *ngIf="monthFrequency?.errors?.['required']">
+                                                Month frequency is required!
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class='col' align='center' style='padding: 0;'>
@@ -37,15 +47,18 @@
                                             formControlName='dayOfMonth'>
                                             <option *ngFor='let i of possibleDaysOfMonth'>{{i}}</option>
                                         </select>
+                                        <div *ngIf="dayOfMonth?.touched || dayOfMonth?.dirty">
+                                            <div class="p-0 text-danger" *ngIf="dayOfMonth?.errors?.['required']">
+                                                Day of month is required!
+                                            </div>
+                                        </div>
                                     </div>
-
                                 </div>
+
                             </form>
-
                             <button data-mdb-button-init data-mdb-ripple-init
-                                class="btn btn-outline-light btn-lg mt-4 px-5" type="submit"
-                                (click)="createReminder()">Create</button>
-
+                                class="btn btn-outline-light btn-lg mt-4 px-5" type="submit" (click)="createReminder()"
+                                [disabled]='reminderCreationForm.invalid'>Create</button>
                         </div>
                     </div>
                 </div>
