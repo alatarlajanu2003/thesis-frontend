@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpinnerService {
 
-  private spinnerSubject: Subject<boolean> = new Subject<boolean>()
+  private spinnerSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   private activeBackendCallCount = 0
 
   constructor() { }
@@ -18,7 +18,7 @@ export class SpinnerService {
 
   turnSpinnerOff() {
     this.activeBackendCallCount -= 1
-    if(this.activeBackendCallCount == 0) {
+    if (this.activeBackendCallCount == 0) {
       this.spinnerSubject.next(false)
     }
   }

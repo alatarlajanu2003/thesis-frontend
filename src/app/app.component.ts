@@ -16,7 +16,7 @@ import { SpinnerService } from './services/spinner.service';
 export class AppComponent implements OnInit {
   isAuthenticated: boolean = false
   user?: User
-  isSpinning?: boolean
+  isSpinning: boolean = false
   constructor(private authService: AuthService, private router: Router, private backendService: BackendService, private spinnerService: SpinnerService) { }
 
   ngOnInit(): void {
