@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { User } from './interfaces/user';
 import { AuthService } from './services/auth.service';
@@ -16,15 +16,22 @@ import { SpinnerService } from './services/spinner.service';
 export class AppComponent implements OnInit {
   isAuthenticated: boolean = false
   user?: User
-  isSpinning: boolean = false
-  constructor(private authService: AuthService, private router: Router, private backendService: BackendService, private spinnerService: SpinnerService) { }
+  isSpinning?: boolean
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private backendService: BackendService,
+    private spinnerService: SpinnerService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
 
     this.spinnerService.getObservableSpinner().subscribe(isSpinning => {
       this.isSpinning = isSpinning
+      this.cdr.detectChanges()
     })
-    
+
     this.router.events.subscribe(value => {
       if (value instanceof NavigationEnd) {
         if (this.router.url.toString() == "/login") {
@@ -46,8 +53,8 @@ export class AppComponent implements OnInit {
     })
 
     this.authService.getObservableTokenExpiration().subscribe(() => {
-        this.authService.deleteToken()
-        this.router.navigate(['/login'])
+      this.authService.deleteToken()
+      this.router.navigate(['/login'])
     })
   }
 
