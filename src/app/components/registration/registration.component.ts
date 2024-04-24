@@ -46,7 +46,6 @@ export class RegistrationComponent {
     ]),
   })
 
-
   get firstName() {
     return this.registrationForm.get('firstName')
   }
