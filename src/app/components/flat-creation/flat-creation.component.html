@@ -11,56 +11,64 @@
                                 <div class="form-outline form-white mb-4">
                                     <input type="text" class="form-control form-control-lg" formControlName="country"
                                         placeholder='Country' required />
-                                    <div class="p-0 text-danger" *ngIf="country?.errors?.['required']">
-                                        Country is required!
-                                    </div>
-                                    <div class="p-0 text-danger" *ngIf="country?.errors?.['maxlength']">
-                                        Country must be no longer than 28 characters!
-                                    </div>
-                                    <div class="p-0 text-danger" *ngIf="country?.errors?.['pattern']">
-                                        Country must contain only letters!
+                                    <div *ngIf="country?.touched || country?.dirty">
+                                        <div class="p-0 text-danger" *ngIf="country?.errors?.['required']">
+                                            Country is required!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="country?.errors?.['maxlength']">
+                                            Country must be no longer than 28 characters!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="country?.errors?.['pattern']">
+                                            Country must contain only letters!
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
                                     <input type="text" class="form-control form-control-lg" formControlName="city"
                                         placeholder='City' required />
-                                    <div class="p-0 text-danger" *ngIf="city?.errors?.['required']">
-                                        City is required!
-                                    </div>
-                                    <div class="p-0 text-danger" *ngIf="city?.errors?.['maxlength']">
-                                        City must be no longer than 28 characters!
-                                    </div>
-                                    <div class="p-0 text-danger" *ngIf="city?.errors?.['pattern']">
-                                        City must contain only letters!
+                                    <div *ngIf="city?.touched || city?.dirty">
+                                        <div class="p-0 text-danger" *ngIf="city?.errors?.['required']">
+                                            City is required!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="city?.errors?.['maxlength']">
+                                            City must be no longer than 28 characters!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="city?.errors?.['pattern']">
+                                            City must contain only letters!
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
                                     <input type="text" class="form-control form-control-lg" formControlName="postalCode"
                                         placeholder='Postal code' required />
-                                    <div class="p-0 text-danger" *ngIf="postalCode?.errors?.['required']">
-                                        Postal code is required!
-                                    </div>
-                                    <div class="p-0 text-danger" *ngIf="postalCode?.errors?.['maxlength']">
-                                        Postal code must be no longer than 28 characters!
+                                    <div *ngIf="postalCode?.touched || postalCode?.dirty">
+                                        <div class="p-0 text-danger" *ngIf="postalCode?.errors?.['required']">
+                                            Postal code is required!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="postalCode?.errors?.['maxlength']">
+                                            Postal code must be no longer than 28 characters!
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
                                     <input type="email" class="form-control form-control-lg" formControlName="address"
                                         placeholder='Address' required />
-                                    <div class="p-0 text-danger" *ngIf="address?.errors?.['required']">
-                                        Address is required!
-                                    </div>
-                                    <div class="p-0 text-danger" *ngIf="address?.errors?.['maxlength']">
-                                        Address must be no longer than 28 characters!
+                                    <div *ngIf="address?.touched || address?.dirty">
+                                        <div class="p-0 text-danger" *ngIf="address?.errors?.['required']">
+                                            Address is required!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="address?.errors?.['maxlength']">
+                                            Address must be no longer than 28 characters!
+                                        </div>
                                     </div>
                                 </div>
 
                                 <button data-mdb-button-init data-mdb-ripple-init
                                     class="btn btn-outline-light btn-lg px-5" type="submit"
-                                    (click)="createFlat()">Submit</button>
+                                    (click)="createFlat()" [disabled]='flatCreationForm.invalid'>Submit</button>
                             </form>
                         </div>
                     </div>
