@@ -1,26 +1,77 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { RegistrationRequest } from '../../interfaces/requests/registration-request';
 import { BackendService } from '../../services/backend.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './registration.component.html'
 })
+
 export class RegistrationComponent {
   registrationForm = new FormGroup({
-    firstName: new FormControl('', { nonNullable: true }),
-    lastName: new FormControl('', { nonNullable: true }),
-    phoneNumber: new FormControl('', { nonNullable: true }),
-    emailAddress: new FormControl('', { nonNullable: true }),
-    password: new FormControl('', { nonNullable: true }),
-    preferredLanguage: new FormControl('', { nonNullable: true }),
+    firstName: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(28),
+      Validators.pattern("[a-zA-Z]")
+    ]),
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(28),
+      Validators.pattern("[a-zA-Z]")
+    ]),
+    phoneNumber: new FormControl('', [
+      Validators.required,
+      Validators.pattern("^\\+[0-9]{7,15}$")
+    ]),
+    emailAddress: new FormControl('', [
+      Validators.required,
+      Validators.email
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(16),
+      Validators.pattern("^.*[a-z].*$"),
+      Validators.pattern("^.*[A-Z].*$"),
+      Validators.pattern("^.*[0-9].*$"),
+      Validators.pattern("^.*[!@#$%^&*_].*$")
+    ]),
+    preferredLanguage: new FormControl('', [
+      Validators.required
+    ]),
   })
 
-  constructor(private backendService: BackendService, private router: Router) {}
+
+  get firstName() {
+    return this.registrationForm.get('firstName')
+  }
+
+  get lastName() {
+    return this.registrationForm.get('lastName')
+  }
+
+  get phoneNumber() {
+    return this.registrationForm.get('phoneNumber')
+  }
+
+  get emailAddress() {
+    return this.registrationForm.get('emailAddress')
+  }
+
+  get password() {
+    return this.registrationForm.get('password')
+  }
+
+  get preferredLanguage() {
+    return this.registrationForm.get('preferredLanguage')
+  }
+
+  constructor(private backendService: BackendService, private router: Router) { }
 
   register() {
     if (

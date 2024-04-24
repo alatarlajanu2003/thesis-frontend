@@ -13,38 +13,94 @@
 
                                 <div class="form-outline form-white mb-4">
                                     <input type="text" class="form-control form-control-lg" formControlName="firstName"
-                                        placeholder='First name' />
+                                        placeholder='First name' required />
+                                    <div class="p-0 text-danger" *ngIf="firstName?.errors?.['required']">
+                                        First name is required!
+                                    </div>
+                                    <div class="p-0 text-danger" *ngIf="firstName?.errors?.['maxlength']">
+                                        First name must be no longer than 28 characters!
+                                    </div>
+                                    <div class="p-0 text-danger" *ngIf="firstName?.errors?.['pattern']">
+                                        First name must contain only letters!
+                                    </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
                                     <input type="text" class="form-control form-control-lg" formControlName="lastName"
-                                        placeholder='Last name' />
+                                        placeholder='Last name' required />
+                                    <div class="p-0 text-danger" *ngIf="lastName?.errors?.['required']">
+                                        Last name is required!
+                                    </div>
+                                    <div class="p-0 text-danger" *ngIf="lastName?.errors?.['maxlength']">
+                                        Last name must be no longer than 28 characters!
+                                    </div>
+                                    <div class="p-0 text-danger" *ngIf="lastName?.errors?.['pattern']">
+                                        Last name must contain only letters!
+                                    </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
                                     <input type="text" class="form-control form-control-lg"
-                                        formControlName="phoneNumber" placeholder='Phone number' />
+                                        formControlName="phoneNumber" placeholder='Phone number (ex: +36123456789)'
+                                        required />
+                                    <div class="p-0 text-danger" *ngIf="phoneNumber?.errors?.['required']">
+                                        Phone number is required!
+                                    </div>
+                                    <div class="p-0 text-danger" *ngIf="phoneNumber?.errors?.['pattern']">
+                                        Invalid phone number!
+                                    </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
                                     <input type="email" class="form-control form-control-lg"
-                                        formControlName="emailAddress" placeholder='Email' />
+                                        formControlName="emailAddress" placeholder='Email' required />
+                                    <div class="p-0 text-danger" *ngIf="emailAddress?.errors?.['required']">
+                                        Email address is required!
+                                    </div>
+                                    <div class="p-0 text-danger" *ngIf="emailAddress?.errors?.['email']">
+                                        Invalid email address!
+                                    </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
                                     <input type="password" class="form-control form-control-lg"
-                                        formControlName="password" placeholder='Password' />
+                                        formControlName="password" placeholder='Password' required />
+                                    <div class="p-0 text-danger" *ngIf="password?.errors?.['required']">
+                                        Password is required!
+                                    </div>
+                                    <div class="p-0 text-danger" *ngIf="password?.errors?.['minlength']">
+                                        Password must be no shorter than 8 characters!
+                                    </div>
+                                    <div class="p-0 text-danger" *ngIf="password?.errors?.['maxlength']">
+                                        Password must be no longer than 16 characters!
+                                    </div>
+                                    <div class="p-0 text-danger" *ngIf="password?.errors?.['pattern']">
+                                        <div class='ml-5 p-0'>
+                                            <ul class="list-group"></ul>Password must contain at least:
+                                            <li class="list-group-item">- one lower case character
+                                            <li class="list-group-item">- one upper case letter
+                                            <li class="list-group-item">- one special character
+                                            <li class="list-group-item">- one digit
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
-                                    <input type="text" class="form-control form-control-lg"
-                                        formControlName="preferredLanguage" placeholder='Preferred language' />
+                                    <select class="form-select form-control form-control-lg"
+                                        formControlName='preferredLanguage'>
+                                        <option value="" disabled selected>Preffered language</option>
+                                        <option value="en">en</option>
+                                        <option value="hu">hu</option>
+                                    </select>
+                                    <div class="p-0 text-danger" *ngIf="preferredLanguage?.errors?.['required']">
+                                        Preferred language is required!
+                                    </div>
                                 </div>
 
                                 <button data-mdb-button-init data-mdb-ripple-init
                                     class="btn btn-outline-light btn-lg px-5" type="submit"
                                     (click)="register()">Submit</button>
-                                    
+
                             </form>
                         </div>
                     </div>
