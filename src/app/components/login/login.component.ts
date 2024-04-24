@@ -1,23 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LoginRequest } from '../../interfaces/requests/login-request';
 import { AuthService } from '../../services/auth.service';
 import { BackendService } from '../../services/backend.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, NgIf],
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit {
   constructor(private backendService: BackendService, private router: Router, private authService: AuthService) { }
 
   loginForm = new FormGroup({
-    emailAddress: new FormControl('', { nonNullable: true }),
-    password: new FormControl('', { nonNullable: true }),
+    emailAddress: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
   })
+
+  get emailAddress() {
+    return this.loginForm.get('emailAddress')
+  }
+
+  get password() {
+    return this.loginForm.get('password')
+  }
 
   ngOnInit(): void {
     this.authService.deleteToken()
