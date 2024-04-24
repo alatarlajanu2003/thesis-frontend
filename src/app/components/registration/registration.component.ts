@@ -17,12 +17,12 @@ export class RegistrationComponent {
     firstName: new FormControl('', [
       Validators.required,
       Validators.maxLength(28),
-      Validators.pattern("[a-zA-Z]")
+      Validators.pattern("^[a-zA-Z]+$")
     ]),
     lastName: new FormControl('', [
       Validators.required,
       Validators.maxLength(28),
-      Validators.pattern("[a-zA-Z]")
+      Validators.pattern("^[a-zA-Z]+$")
     ]),
     phoneNumber: new FormControl('', [
       Validators.required,
