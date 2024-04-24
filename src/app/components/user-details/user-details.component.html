@@ -4,39 +4,78 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card bg-dark text-white" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
-
                         <div class="mb-md-5 mt-md-4">
-
                             <form [formGroup]="userDetailsForm">
 
                                 <div class="form-outline form-white mb-4">
-                                    First name <input type="text" class="form-control form-control-lg"
-                                     formControlName="firstName" />
+                                    <input type="text" class="form-control form-control-lg" formControlName="firstName"
+                                        placeholder='First name' required />
+                                    <div *ngIf="firstName?.touched || firstName?.dirty">
+                                        <div class="p-0 text-danger" *ngIf="firstName?.errors?.['required']">
+                                            First name is required!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="firstName?.errors?.['maxlength']">
+                                            First name must be no longer than 28 characters!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="firstName?.errors?.['pattern']">
+                                            First name must contain only letters!
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
-                                    Last name <input type="text" class="form-control form-control-lg" 
-                                    formControlName="lastName" />
+                                    <input type="text" class="form-control form-control-lg" formControlName="lastName"
+                                        placeholder='Last name' required />
+                                    <div *ngIf="lastName?.touched || lastName?.dirty">
+                                        <div class="p-0 text-danger" *ngIf="lastName?.errors?.['required']">
+                                            Last name is required!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="lastName?.errors?.['maxlength']">
+                                            Last name must be no longer than 28 characters!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="lastName?.errors?.['pattern']">
+                                            Last name must contain only letters!
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
-                                    Phone number <input type="text" class="form-control form-control-lg"
-                                        formControlName="phoneNumber" />
+                                    <input type="text" class="form-control form-control-lg"
+                                        formControlName="phoneNumber" placeholder='Phone number (ex: +36123456789)'
+                                        required />
+                                    <div *ngIf="lastName?.touched || lastName?.dirty">
+                                        <div class="p-0 text-danger" *ngIf="phoneNumber?.errors?.['required']">
+                                            Phone number is required!
+                                        </div>
+                                        <div class="p-0 text-danger" *ngIf="phoneNumber?.errors?.['pattern']">
+                                            Invalid phone number!
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
-                                    Email address <input type="email" class="form-control form-control-lg"
-                                       readonly formControlName="emailAddress" />
+                                    <input type="email" class="form-control form-control-lg"
+                                        formControlName="emailAddress" placeholder='Email' />
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
-                                    Preferred language <input type="text" class="form-control form-control-lg"
-                                        formControlName="preferredLanguage" />
+                                    <select class="form-select form-control form-control-lg"
+                                        formControlName='preferredLanguage'>
+                                        <option value="" disabled selected>Preffered language</option>
+                                        <option value="en">en</option>
+                                        <option value="hu">hu</option>
+                                    </select>
+                                    <div *ngIf="preferredLanguage?.touched || preferredLanguage?.dirty">
+                                        <div class="p-0 text-danger" *ngIf="preferredLanguage?.errors?.['required']">
+                                            Preferred language is required!
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <button
                                     class="btn btn-outline-light btn-lg px-5" type="submit"
-                                    (click)="update()">Update</button>
+                                    (click)="update()" [disabled]='userDetailsForm.invalid'>Update</button>
+
                             </form>
                         </div>
                     </div>
