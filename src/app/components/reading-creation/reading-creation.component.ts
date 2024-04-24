@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReadingCreationRequest } from '../../interfaces/requests/reading-creation-request';
 import { BackendService } from '../../services/backend.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-reading-creation',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './reading-creation.component.html'
 })
 export class ReadingCreationComponent implements OnInit {
@@ -16,9 +17,23 @@ export class ReadingCreationComponent implements OnInit {
   constructor(private backendService: BackendService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   readingCreationForm = new FormGroup({
-    readingName: new FormControl('Water', { nonNullable: true }),
-    readingAmount: new FormControl('', { nonNullable: true })
-  });
+    readingName: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(28)
+    ]),
+    readingAmount: new FormControl('', [
+      Validators.required,
+      Validators.pattern("^[0-9]+$")
+    ])
+  })
+
+  get readingName() {
+    return this.readingCreationForm.get("readingName")
+  }
+
+  get readingAmount() {
+    return this.readingCreationForm.get("readingAmount")
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {

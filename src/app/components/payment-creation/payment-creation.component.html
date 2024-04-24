@@ -1,34 +1,44 @@
 <section class="vh-100">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card bg-dark text-white" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center">
-  
-              <div class="mb-md-5 mt-md-4">
-  
-                <h2 class="fw-bold mb-5 text-uppercase">New Payment</h2>
-  
-                <form [formGroup]="paymentCreationForm">
-  
-                  <div class="form-outline form-white mb-4">
-                    <input type="text" class="form-control form-control-lg" formControlName="paymentName"
-                      placeholder='Payment name' />
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+            <div class="mb-md-5 mt-md-4">
+              <h2 class="fw-bold mb-5 text-uppercase">New Payment</h2>
+              <form [formGroup]="paymentCreationForm">
+
+                <div class="form-outline form-white mb-4">
+                  <input type="text" class="form-control form-control-lg" formControlName="paymentName"
+                    placeholder='Payment name' />
+                  <div class="p-0 text-danger" *ngIf="paymentName?.errors?.['required']">
+                    Payment name is required!
                   </div>
-  
-                  <div class="form-outline form-white mb-4">
-                    <input type="text" class="form-control form-control-lg" formControlName="paymentAmount"
-                      placeholder='Payment amount' />
+                  <div class="p-0 text-danger" *ngIf="paymentName?.errors?.['maxlength']">
+                    Payment name must be no longer than 28 characters!
                   </div>
-  
-                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
-                    type="submit" (click)="createPayment()">Create</button>
-  
-                </form>
-              </div>
+                </div>
+
+
+                <div class="form-outline form-white mb-4">
+                  <input type="number" min='0' class="form-control form-control-lg" formControlName="paymentAmount"
+                    placeholder='Payment amount' />
+                  <div class="p-0 text-danger" *ngIf="paymentAmount?.errors?.['required']">
+                    Payment amount is required!
+                  </div>
+                  <div class="p-0 text-danger" *ngIf="paymentAmount?.errors?.['pattern']">
+                    Payment amount must be a positive number!
+                  </div>
+                </div>
+
+                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
+                  type="submit" (click)="createPayment()">Create</button>
+
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
