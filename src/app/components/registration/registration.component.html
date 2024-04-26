@@ -44,7 +44,7 @@
                                     <input type="text" class="form-control form-control-lg"
                                         formControlName="phoneNumber" placeholder='Phone number (ex: +36123456789)'
                                         required />
-                                    <div *ngIf="lastName?.touched || lastName?.dirty">
+                                    <div *ngIf="phoneNumber?.touched || phoneNumber?.dirty">
                                         <div class="p-0 text-danger" *ngIf="phoneNumber?.errors?.['required']">
                                             Phone number is required!
                                         </div>
