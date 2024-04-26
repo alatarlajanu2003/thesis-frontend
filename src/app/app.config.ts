@@ -6,11 +6,12 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { routes } from './app.routes';
 import { jwtInterceptor } from './interceptors/auth.interceptor';
 import { loadingInterceptor } from './interceptors/loading.interceptor';
+import { errorInterceptor } from './interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withInterceptors([jwtInterceptor, loadingInterceptor])),
+    provideHttpClient(withInterceptors([jwtInterceptor, loadingInterceptor, errorInterceptor])),
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService
   ]
