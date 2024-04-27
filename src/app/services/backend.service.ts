@@ -53,8 +53,16 @@ export class BackendService {
     return this.httpClient.get<Array<User>>(`${this.baseUrl}/getTenants/${flatId}`)
   }
 
+  deleteTenant(flatId: number, tenantId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/deleteTenant/${tenantId}/${flatId}`)
+  }
+
   createFlat(flatCreationRequest: FlatCreationRequest) {
     return this.httpClient.post<FlatCreationRequest>(`${this.baseUrl}/createFlat`, flatCreationRequest)
+  }
+
+  deleteFlat(flatId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/deleteFlat/${flatId}`)
   }
 
   getPayments(flatId: number) {
