@@ -31,14 +31,28 @@ export class HomeComponent implements OnInit {
         }
       })
 
-      this.backendService.getOwnedFlats(userId).subscribe(flats => {
-        for (let flat of flats) {
-          this.backendService.getTenants(flat.id).subscribe(tenants => {
-            this.ownedFlatsWithTenants.push([flat, tenants])
-            this.ownedFlatsWithTenants.sort((first, second) => first[0].id - second[0].id)
-          })
-        }
-      })
+      this.refreshOwnedPlaces(userId)
+    }
+  }
+
+  refreshOwnedPlaces(userId: number) {
+    this.ownedFlatsWithTenants = []
+    this.backendService.getOwnedFlats(userId).subscribe(flats => {
+      for (let flat of flats) {
+        this.backendService.getTenants(flat.id).subscribe(tenants => {
+          this.ownedFlatsWithTenants.push([flat, tenants])
+          this.ownedFlatsWithTenants.sort((first, second) => first[0].id - second[0].id)
+        })
+      }
+    })
+  }
+
+  deleteFlat(flatId: number) {
+    const userId = this.authService.getUserId()
+    if(userId) {
+      this.backendService.deleteFlat(flatId).subscribe(_ =>
+        this.refreshOwnedPlaces(userId)
+      )
     }
   }
 }

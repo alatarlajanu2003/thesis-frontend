@@ -4,8 +4,10 @@
     <div class="card-deck">
         <div class="card bg-light" style="width: 18rem; display:inline-block; margin: 10px; border: 2px solid black;"
             *ngFor="let rentedFlatWithOwners of rentedFlatsWithOwners">
-            <div class="card-body">
+            <div class='card-header'>
                 <h5 class="card-title">{{rentedFlatWithOwners[0].address}}</h5>
+            </div>
+            <div class="card-body">
                 <div class="card-text">
                     Owner: {{rentedFlatWithOwners[1].firstName}} {{rentedFlatWithOwners[1].lastName}}
                 </div><br>
@@ -22,8 +24,20 @@
     <div class="card-deck">
         <div class="card bg-light" style="width: 18rem; display:inline-block; margin: 10px; border: 2px solid black;"
             *ngFor="let ownedFlatWithTenants of ownedFlatsWithTenants">
+            <div class='card-header'>
+                <div class='contaner'>
+                    <div class='row'>
+                        <div class='col'>
+                            <h5 class="card-title">{{ownedFlatWithTenants[0].address}}</h5>
+                        </div>
+                        <div class='col-3'>
+                            <button type="button" class="btn-close delete-btn"
+                                (click)="deleteFlat(ownedFlatWithTenants[0].id)"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="card-body">
-                <h5 class="card-title">{{ownedFlatWithTenants[0].address}}</h5>
                 <div class="card-text">
                     Tenant(s):
                     <div *ngFor="let tenant of ownedFlatWithTenants[1]">
