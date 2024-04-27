@@ -5,11 +5,11 @@
         <div class="card bg-light" style="width: 18rem; display:inline-block; margin: 10px; border: 2px solid black;"
             *ngFor="let rentedFlatWithOwners of rentedFlatsWithOwners">
             <div class='card-header'>
-                <h5 class="card-title">{{rentedFlatWithOwners[0].address}}</h5>
+                <h5 class="card-title m-0">{{rentedFlatWithOwners[0].address}}</h5>
             </div>
             <div class="card-body">
                 <div class="card-text">
-                    Owner: {{rentedFlatWithOwners[1].firstName}} {{rentedFlatWithOwners[1].lastName}}
+                    <b>Owner:</b> {{rentedFlatWithOwners[1].firstName}} {{rentedFlatWithOwners[1].lastName}}
                 </div><br>
                 <a [routerLink]="['/flat-details', rentedFlatWithOwners[0].id]" class="btn btn-dark">Details</a>
             </div>
@@ -25,10 +25,10 @@
         <div class="card bg-light" style="width: 18rem; display:inline-block; margin: 10px; border: 2px solid black;"
             *ngFor="let ownedFlatWithTenants of ownedFlatsWithTenants">
             <div class='card-header'>
-                <div class='contaner'>
+                <div>
                     <div class='row'>
                         <div class='col'>
-                            <h5 class="card-title">{{ownedFlatWithTenants[0].address}}</h5>
+                            <h5 class="card-title m-0">{{ownedFlatWithTenants[0].address}}</h5>
                         </div>
                         <div class='col-2'>
                             <button type="button" class="btn-close delete-btn"
@@ -39,7 +39,7 @@
             </div>
             <div class="card-body">
                 <div class="card-text">
-                    Tenant(s):
+                    <b>Tenant(s):</b>
                     <div *ngFor="let tenant of ownedFlatWithTenants[1]">
                         {{tenant.firstName}} {{tenant.lastName}}
                     </div>

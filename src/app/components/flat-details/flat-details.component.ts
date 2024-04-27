@@ -55,9 +55,7 @@ export class FlatDetailsComponent implements OnInit {
         this.owner = owner
         this.isOwner = userId == owner.id
       })
-      this.backendService.getTenants(this.flatId).subscribe(tenants => {
-        this.tenants = tenants
-      })
+      this.refereshTenants(this.flatId)
       this.backendService.getPayments(this.flatId).subscribe(payments => {
         this.payments = payments
       })
@@ -67,6 +65,24 @@ export class FlatDetailsComponent implements OnInit {
       this.backendService.getReminders(this.flatId).subscribe(reminders => {
         this.reminders = this.getHumanReadableFrequency(reminders)
       })
+    }
+  }
+
+  refereshTenants(flatId: number){
+    this.tenants = []
+    const userId = this.authService.getUserId()
+    if(userId && this.flatId) {
+      this.backendService.getTenants(this.flatId).subscribe(tenants => {
+        this.tenants = tenants
+      })
+    }
+  }
+
+  deleteTenant(flatId: number | undefined, tenantId: number) {
+    if (flatId){
+      this.backendService.deleteTenant(flatId, tenantId).subscribe(_ =>
+        this.refereshTenants(flatId)
+      )
     }
   }
 
