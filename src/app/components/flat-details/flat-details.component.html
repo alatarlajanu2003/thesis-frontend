@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<div align='center'>
+<div align='center' *ngIf="isOwner">
     <form [formGroup]="invitationForm" class='mt-4'>
         <h5>Invite new tenant to this flat</h5>
         <div class="mt-4 mb-4">

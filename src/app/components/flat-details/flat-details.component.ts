@@ -9,6 +9,7 @@ import { DatePipe, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InvitationRequest } from '../../interfaces/requests/invitation-request';
 import { Reminder } from '../../interfaces/reminder';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-flat-details',
@@ -24,8 +25,9 @@ export class FlatDetailsComponent implements OnInit {
   payments: Array<Payment> = []
   readings: Array<Reading> = []
   reminders: Array<Reminder> = []
+  isOwner: Boolean = false
 
-  constructor(private backendService: BackendService, private activatedRoute: ActivatedRoute) { }
+  constructor(private backendService: BackendService, private activatedRoute: ActivatedRoute, private authService: AuthService) { }
 
   invitationForm = new FormGroup({
     emailAddress: new FormControl('', [
@@ -43,12 +45,15 @@ export class FlatDetailsComponent implements OnInit {
       this.flatId = Number(params['flatId'])
     })
 
+    const userId = this.authService.getUserId()
+
     if (this.flatId) {
       this.backendService.getFlat(this.flatId).subscribe(flat => {
         this.flat = flat
       })
       this.backendService.getOwner(this.flatId).subscribe(owner => {
         this.owner = owner
+        this.isOwner = userId == owner.id
       })
       this.backendService.getTenants(this.flatId).subscribe(tenants => {
         this.tenants = tenants
