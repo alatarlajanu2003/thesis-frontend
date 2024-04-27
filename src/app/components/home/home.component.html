@@ -3,13 +3,13 @@
 
     <div class="card-deck">
         <div class="card bg-light" style="width: 18rem; display:inline-block; margin: 10px; border: 2px solid black;"
-            *ngFor="let flat of rentedFlats; let i = index">
+            *ngFor="let rentedFlatWithOwners of rentedFlatsWithOwners">
             <div class="card-body">
-                <h5 class="card-title">{{rentedFlats[i].address}}</h5>
+                <h5 class="card-title">{{rentedFlatWithOwners[0].address}}</h5>
                 <div class="card-text">
-                    Owner: {{owners[i].firstName}} {{owners[i].lastName}}
+                    Owner: {{rentedFlatWithOwners[1].firstName}} {{rentedFlatWithOwners[1].lastName}}
                 </div><br>
-                <a [routerLink]="['/flat-details', flat.id]" class="btn btn-dark">Details</a>
+                <a [routerLink]="['/flat-details', rentedFlatWithOwners[0].id]" class="btn btn-dark">Details</a>
             </div>
         </div>
     </div>
@@ -21,16 +21,16 @@
 
     <div class="card-deck">
         <div class="card bg-light" style="width: 18rem; display:inline-block; margin: 10px; border: 2px solid black;"
-            *ngFor="let flat of ownedFlats; let i = index">
+            *ngFor="let ownedFlatWithTenants of ownedFlatsWithTenants">
             <div class="card-body">
-                <h5 class="card-title">{{ownedFlats[i].address}}</h5>
+                <h5 class="card-title">{{ownedFlatWithTenants[0].address}}</h5>
                 <div class="card-text">
                     Tenant(s):
-                    <div *ngFor="let tenant of allTenants[i]">
+                    <div *ngFor="let tenant of ownedFlatWithTenants[1]">
                         {{tenant.firstName}} {{tenant.lastName}}
                     </div>
                 </div><br>
-                <a [routerLink]="['/flat-details', flat.id]" class="btn btn-dark">Details</a>
+                <a [routerLink]="['/flat-details', ownedFlatWithTenants[0].id]" class="btn btn-dark">Details</a>
             </div>
         </div>
     </div>

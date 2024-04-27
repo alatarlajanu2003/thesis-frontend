@@ -13,11 +13,8 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-
-  rentedFlats: Array<Flat> = []
-  ownedFlats: Array<Flat> = []
-  owners: Array<User> = []
-  allTenants: Array<Array<User>> = []
+  rentedFlatsWithOwners: [Flat, User][] = []
+  ownedFlatsWithTenants: [Flat, User[]][] = []
 
   constructor(private backendService: BackendService, private authService: AuthService) { }
 
@@ -26,23 +23,22 @@ export class HomeComponent implements OnInit {
     if (userId) {
 
       this.backendService.getRentedFlats(userId).subscribe(flats => {
-        for(let flat of flats){
+        for (let flat of flats) {
           this.backendService.getOwner(flat.id).subscribe(owner => {
-            this.rentedFlats.push(flat)
-            this.owners.push(owner)
+            this.rentedFlatsWithOwners.push([flat, owner])
+            this.rentedFlatsWithOwners.sort((first, second) => first[0].id - second[0].id)
           })
         }
       })
 
       this.backendService.getOwnedFlats(userId).subscribe(flats => {
-        for(let flat of flats){
+        for (let flat of flats) {
           this.backendService.getTenants(flat.id).subscribe(tenants => {
-            this.ownedFlats.push(flat)
-            this.allTenants.push(tenants)
+            this.ownedFlatsWithTenants.push([flat, tenants])
+            this.ownedFlatsWithTenants.sort((first, second) => first[0].id - second[0].id)
           })
         }
       })
-
     }
   }
 }
