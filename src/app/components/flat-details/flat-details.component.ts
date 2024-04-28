@@ -68,10 +68,10 @@ export class FlatDetailsComponent implements OnInit {
     }
   }
 
-  refereshTenants(flatId: number){
+  refereshTenants(flatId: number) {
     this.tenants = []
     const userId = this.authService.getUserId()
-    if(userId && this.flatId) {
+    if (userId && this.flatId) {
       this.backendService.getTenants(this.flatId).subscribe(tenants => {
         this.tenants = tenants
       })
@@ -79,19 +79,21 @@ export class FlatDetailsComponent implements OnInit {
   }
 
   deleteTenant(flatId: number | undefined, tenantId: number) {
-    if (flatId){
-      this.backendService.deleteTenant(flatId, tenantId).subscribe(_ =>
-        this.refereshTenants(flatId)
-      )
+    if (confirm("Are you sure you want to delete this tenant?")) {
+      if (flatId) {
+        this.backendService.deleteTenant(flatId, tenantId).subscribe(_ =>
+          this.refereshTenants(flatId)
+        )
+      }
     }
   }
 
   getHumanReadableFrequency(reminders: Reminder[]): Reminder[] {
     const remindersWithHumanReadableFrequency: Reminder[] = []
-    for(let reminder of reminders) {
+    for (let reminder of reminders) {
       const dayOfMonth: string = reminder.reminderFrequency.split(' ')[3]
       const monthFrequency: string = reminder.reminderFrequency.split(' ')[4].split('/')[1]
-      
+
       remindersWithHumanReadableFrequency.push({
         id: reminder.id,
         flatId: reminder.flatId,

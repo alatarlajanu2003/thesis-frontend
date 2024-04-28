@@ -171,11 +171,13 @@ export class ReadingDetailsComponent implements OnInit {
   }
 
   deleteReading(readingId: number) {
-    this.backendService.deleteReading(readingId).subscribe(() => {
-      if (this.flatId) {
-        this.refreshReadingData(this.flatId)
-      }
-    })
+    if (confirm("Are you sure you want to delete this reading?")) {
+      this.backendService.deleteReading(readingId).subscribe(() => {
+        if (this.flatId) {
+          this.refreshReadingData(this.flatId)
+        }
+      })
+    }
   }
 
   onFileSelected(event: any): void {
@@ -187,11 +189,13 @@ export class ReadingDetailsComponent implements OnInit {
   }
 
   deleteReadingEvidence(readingId: number) {
-    this.backendService.deleteReadingEvidence(readingId).subscribe(() => {
-      if (this.flatId) {
-        this.refreshReadingData(this.flatId)
-      }
-    })
+    if (confirm("Are you sure you want to delete this reading evidence?")) {
+      this.backendService.deleteReadingEvidence(readingId).subscribe(() => {
+        if (this.flatId) {
+          this.refreshReadingData(this.flatId)
+        }
+      })
+    }
   }
 
   acknowledgeReadingEvidence(readingId: number) {

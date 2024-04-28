@@ -49,10 +49,12 @@ export class HomeComponent implements OnInit {
 
   deleteFlat(flatId: number) {
     const userId = this.authService.getUserId()
-    if(userId) {
-      this.backendService.deleteFlat(flatId).subscribe(_ =>
-        this.refreshOwnedPlaces(userId)
-      )
+    if (confirm("Are you sure you want to delete this flat?")) {
+      if (userId) {
+        this.backendService.deleteFlat(flatId).subscribe(_ =>
+          this.refreshOwnedPlaces(userId)
+        )
+      }
     }
   }
 }

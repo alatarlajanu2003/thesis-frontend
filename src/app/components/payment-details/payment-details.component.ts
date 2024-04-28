@@ -64,11 +64,13 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   deletePayment(paymentId: number) {
-    this.backendService.deletePayment(paymentId).subscribe(() => {
-      if (this.flatId) {
-        this.refreshPaymentData(this.flatId)
-      }
-    })
+    if (confirm("Are you sure you want to delete this payment?")) {
+      this.backendService.deletePayment(paymentId).subscribe(() => {
+        if (this.flatId) {
+          this.refreshPaymentData(this.flatId)
+        }
+      })
+    }
   }
 
   onFileSelected(event: any): void {
@@ -76,15 +78,17 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   uploadPaymentEvidence(paymentId: number): void {
-      this.imageService.uploadPaymentEvidence(paymentId, this.selectedFile)
-    }
+    this.imageService.uploadPaymentEvidence(paymentId, this.selectedFile)
+  }
 
   deletePaymentEvidence(paymentId: number) {
-    this.backendService.deletePaymentEvidence(paymentId).subscribe(() => {
-      if (this.flatId) {
-        this.refreshPaymentData(this.flatId)
-      }
-    })
+    if (confirm("Are you sure you want to delete this payment evidence?")) {
+      this.backendService.deletePaymentEvidence(paymentId).subscribe(() => {
+        if (this.flatId) {
+          this.refreshPaymentData(this.flatId)
+        }
+      })
+    }
   }
 
   acknowledgePaymentEvidence(paymentId: number) {
