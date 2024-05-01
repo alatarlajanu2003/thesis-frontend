@@ -1,13 +1,13 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, NgFor, NgIf, NgStyle } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, RouterLink } from '@angular/router'
+import { AgChartsAngular } from 'ag-charts-angular'
 import { Flat } from '../../interfaces/flat'
+import { Reading } from '../../interfaces/reading'
 import { ReadingEnriched } from '../../interfaces/reading-enriched'
 import { AuthService } from '../../services/auth.service'
 import { BackendService } from '../../services/backend.service'
 import { ImageService } from '../../services/image.service'
-import { Reading } from '../../interfaces/reading'
-import { AgChartsAngular } from 'ag-charts-angular'
 
 
 @Component({
@@ -19,8 +19,6 @@ import { AgChartsAngular } from 'ag-charts-angular'
 export class ReadingDetailsComponent implements OnInit {
   flatId?: number
   flat?: Flat
-  readingsEnriched: ReadingEnriched[] = []
-  namesOfReaders: string[] = []
   isOwner: boolean = false
   userId?: number
   selectedFile: File = new File([], "")
@@ -29,6 +27,7 @@ export class ReadingDetailsComponent implements OnInit {
   waterChartOptions: any
   gasChartOptions: any
   electricityChartOptions: any
+  readingsWithUser: [ReadingEnriched, string][] = []
 
   myTheme = {
     palette: {
@@ -83,18 +82,36 @@ export class ReadingDetailsComponent implements OnInit {
   }
 
   refreshReadingData(flatId: number) {
-    this.readingsEnriched = []
-    this.namesOfReaders = []
+    this.readingsWithUser = []
     this.backendService.getReadings(flatId).subscribe(readings => {
       for (let reading of readings) {
+        const readingEnriched = this.initializeReadingWithImageUrl(reading)
         this.backendService.getNameOfUser(reading.readerId).subscribe(name => {
-          this.namesOfReaders.push(name)
+          this.readingsWithUser.push([readingEnriched, name])
+          this.readingsWithUser.sort((first, second) => first[0].id - second[0].id)
+
+          this.calculateConsumption(this.readingsWithUser.map(readingWithUser => readingWithUser[0]))
+          this.initializeCharts()
         })
       }
-      this.readingsEnriched = this.imageService.initializeReadingsWithImageUrl(readings)
-      this.calculateConsumption(this.readingsEnriched)
-      this.initializeCharts()
     })
+  }
+
+  initializeReadingWithImageUrl(reading: Reading): ReadingEnriched {
+    return {
+      id: reading.id,
+      flatId: reading.flatId,
+      readerId: reading.readerId,
+      readingDate: reading.readingDate,
+      readingName: reading.readingName,
+      readingAmount: reading.readingAmount,
+      isAcknowledged: reading.isAcknowledged,
+      imageName: reading.imageName,
+      imageContent: reading.imageContent,
+      imageContentType: reading.imageContentType,
+      imageUrl: this.imageService.getEvidenceUrl(reading),
+      consumption: 0
+    }
   }
 
   initializeCharts() {
@@ -114,7 +131,7 @@ export class ReadingDetailsComponent implements OnInit {
   }
 
   getConsumption(readingType: string, month: string, year: string): number {
-    return this.readingsEnriched.filter(r => {
+    return this.readingsWithUser.map(readingWithUser => readingWithUser[0]).filter(r => {
       const readingDate = new Date(r.readingDate).toString().split(' ')
       return readingDate[3] == year && readingDate[1] == month && r.readingName == readingType
     })
@@ -207,7 +224,7 @@ export class ReadingDetailsComponent implements OnInit {
   }
 
   getUnit(readingName: string) {
-    switch(readingName){
+    switch (readingName) {
       case "Water": return "m³"
       case "Electricity": return "kWh"
       case "Gas": return "m³"

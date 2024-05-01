@@ -15,24 +15,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let reading of readingsEnriched; let i = index" align='center' class='align-middle'>
-                <td>{{reading.readingDate | date}}</td>
-                <td>{{reading.readingName}}</td>
-                <td>{{reading.readingAmount | number:'0.3-3'}} {{getUnit(reading.readingName)}}</td>
-                <td>{{reading.consumption | number:'0.3-3'}} {{getUnit(reading.readingName)}}</td>
-                <td>{{namesOfReaders[i]}}</td>
-                <td>{{reading.isAcknowledged ? "Acknowledged" : "Pending"}}</td>
+            <tr *ngFor="let reading of readingsWithUser" align='center' class='align-middle'>
+                <td>{{reading[0].readingDate | date}}</td>
+                <td>{{reading[0].readingName}}</td>
+                <td>{{reading[0].readingAmount | number:'0.3-3'}} {{getUnit(reading[0].readingName)}}</td>
+                <td>{{reading[0].consumption | number:'0.3-3'}} {{getUnit(reading[0].readingName)}}</td>
+                <td>{{reading[1]}}</td>
+                <td>{{reading[0].isAcknowledged ? "Acknowledged" : "Pending"}}</td>
                 <td>
-                    <input *ngIf="reading.readerId == userId && !reading.imageUrl" type="file" (change)="onFileSelected($event)" style='margin-left: 70px'>
-                    <a *ngIf="reading.imageUrl"(click)="openPopup(reading)" style='cursor: pointer;'>{{reading.imageName}}</a>
+                    <input *ngIf="reading[0].readerId == userId && !reading[0].imageUrl" type="file" (change)="onFileSelected($event)" style='margin-left: 70px'>
+                    <a *ngIf="reading[0].imageUrl"(click)="openPopup(reading[0])" style='cursor: pointer;'>{{reading[0].imageName}}</a>
                 </td>
                 <td *ngIf="!isOwner" align='center'>
-                    <button *ngIf="reading.readerId == userId && !reading.imageUrl" class="btn btn-dark" type="submit" (click)="uploadReadingEvidence(reading.id)">Upload</button>
-                    <button *ngIf="reading.readerId == userId && reading.imageUrl" class="btn btn-dark" type="submit" (click)="deleteReadingEvidence(reading.id)">Delete</button>
+                    <button *ngIf="reading[0].readerId == userId && !reading[0].imageUrl" class="btn btn-dark" type="submit" (click)="uploadReadingEvidence(reading[0].id)">Upload</button>
+                    <button *ngIf="reading[0].readerId == userId && reading[0].imageUrl" class="btn btn-dark" type="submit" (click)="deleteReadingEvidence(reading[0].id)">Delete</button>
                 </td>
                 <td>
-                    <div (click)='acknowledgeReadingEvidence(reading.id)' *ngIf='isOwner && !reading.isAcknowledged && reading.imageUrl' style='cursor: pointer;'><i class="bi bi-check" style='font-size: 25px;'></i></div>
-                    <div (click)='deleteReading(reading.id)' *ngIf="!isOwner && reading.readerId == userId" style='cursor: pointer;' align='center'><i class="bi bi-trash" style='font-size: 25px;'></i></div>
+                    <div (click)='acknowledgeReadingEvidence(reading[0].id)' *ngIf='isOwner && !reading[0].isAcknowledged && reading[0].imageUrl' style='cursor: pointer;'><i class="bi bi-check" style='font-size: 25px;'></i></div>
+                    <div (click)='deleteReading(reading[0].id)' *ngIf="!isOwner && reading[0].readerId == userId" style='cursor: pointer;' align='center'><i class="bi bi-trash" style='font-size: 25px;'></i></div>
                 </td>
             </tr>
         </tbody>
@@ -54,7 +54,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <img src={{currentReading?.imageUrl}} alt="">
+                <img src={{currentReading?.imageUrl}} style="max-width: 100%" alt="">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" (click)="closePopup()">

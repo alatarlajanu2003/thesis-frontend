@@ -81,26 +81,4 @@ export class ImageService {
     }
     return paymentsWithImageUrl
   }
-
-  initializeReadingsWithImageUrl(readings: Reading[]) {
-    const readingsWithImageUrl: ReadingEnriched[] = []
-    for (let reading of readings) {
-      const readingWithImageUrl: ReadingEnriched = {
-        id: reading.id,
-        flatId: reading.flatId,
-        readerId: reading.readerId,
-        readingDate: reading.readingDate,
-        readingName: reading.readingName,
-        readingAmount: reading.readingAmount,
-        isAcknowledged: reading.isAcknowledged,
-        imageName: reading.imageName,
-        imageContent: reading.imageContent,
-        imageContentType: reading.imageContentType,
-        imageUrl: this.getEvidenceUrl(reading),
-        consumption: 0
-      }
-      readingsWithImageUrl.push(readingWithImageUrl)
-    }
-    return readingsWithImageUrl
-  }
 }
