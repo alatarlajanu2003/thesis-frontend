@@ -14,41 +14,41 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let payment of paymentsWithImageUrl; let i = index" align='center' class='align-middle'>
-                <td>{{payment.paymentDate | date}}</td>
-                <td>{{payment.paymentName}}</td>
-                <td>{{payment.paymentAmount | currency:'HUF'}}</td>
-                <td>{{namesOfPayers[i]}}</td>
-                <td>{{payment.isAcknowledged ? "Acknowledged" : "Pending"}}</td>
+            <tr *ngFor="let payment of paymentsWithPayerName; let i = index" align='center' class='align-middle'>
+                <td>{{payment[0].paymentDate | date}}</td>
+                <td>{{payment[0].paymentName}}</td>
+                <td>{{payment[0].paymentAmount | currency:'HUF'}}</td>
+                <td>{{payment[1]}}</td>
+                <td>{{payment[0].isAcknowledged ? "Acknowledged" : "Pending"}}</td>
                 <td>
-                    <input *ngIf="payment.payerId == userId && !payment.imageUrl" type="file" (change)="onFileSelected($event)" style='margin-left: 70px'>
-                    <a (click)="openPopup(payment)" style='cursor: pointer;'>{{payment.imageName}}</a>
+                    <input *ngIf="payment[0].payerId == userId && !payment[0].imageUrl" type="file" (change)="onFileSelected($event)" style='margin-left: 70px'>
+                    <a (click)="openPopup(payment[0])" style='cursor: pointer;'>{{payment[0].imageName}}</a>
                 </td>
                 <td *ngIf="!isOwner" align='center'>
-                    <button *ngIf="payment.payerId == userId && !payment.imageUrl" class="btn btn-dark" type="submit" (click)="uploadPaymentEvidence(payment.id)">Upload</button>
-                    <button *ngIf="payment.payerId == userId && payment.imageUrl" class="btn btn-dark" type="submit" (click)="deletePaymentEvidence(payment.id)">Delete</button>
+                    <button *ngIf="payment[0].payerId == userId && !payment[0].imageUrl" class="btn btn-dark" type="submit" (click)="uploadPaymentEvidence(payment[0].id)">Upload</button>
+                    <button *ngIf="payment[0].payerId == userId && payment[0].imageUrl" class="btn btn-dark" type="submit" (click)="deletePaymentEvidence(payment[0].id)">Delete</button>
                 </td>
                 <td>
                     <div *ngIf="isOwner; then thenBlock else elseBlock"></div>
                     <ng-template #thenBlock>
-                        <div (click)='acknowledgePaymentEvidence(payment.id)' *ngIf='!payment.isAcknowledged && payment.imageUrl' style='cursor: pointer;'><i class="bi bi-check" style='font-size: 25px;'></i></div>
+                        <div (click)='acknowledgePaymentEvidence(payment[0].id)' *ngIf='!payment[0].isAcknowledged && payment[0].imageUrl' style='cursor: pointer;'><i class="bi bi-check" style='font-size: 25px;'></i></div>
                     </ng-template>
                     <ng-template #elseBlock>
-                        <div (click)='deletePayment(payment.id)' *ngIf="payment.payerId == userId" style='cursor: pointer;' align='center'><i class="bi bi-trash" style='font-size: 25px;'></i></div>
+                        <div (click)='deletePayment(payment[0].id)' *ngIf="payment[0].payerId == userId" style='cursor: pointer;' align='center'><i class="bi bi-trash" style='font-size: 25px;'></i></div>
                     </ng-template>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <button *ngIf="!isOwner" class="btn btn-dark px-5" type="submit" [routerLink]="['/payment-creation', flatId]">Add new</button>
+    <button *ngIf="!isOwner" class="btn btn-dark px-5 mb-3" type="submit" [routerLink]="['/payment-creation', flatId]">Add new</button>
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <img src={{currentPayment?.imageUrl}} alt="">
+                <img src={{currentPayment?.imageUrl}} style="width: 100%;" alt="">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" (click)="closePopup()">

@@ -6,6 +6,7 @@ import { PaymentWithImageUrl } from '../../interfaces/payment-with-image-url'
 import { AuthService } from '../../services/auth.service'
 import { BackendService } from '../../services/backend.service'
 import { ImageService } from '../../services/image.service'
+import { Payment } from '../../interfaces/payment'
 
 @Component({
   selector: 'app-payment-details',
@@ -16,13 +17,12 @@ import { ImageService } from '../../services/image.service'
 export class PaymentDetailsComponent implements OnInit {
   flatId?: number
   flat?: Flat
-  paymentsWithImageUrl: PaymentWithImageUrl[] = []
-  namesOfPayers: string[] = []
   isOwner: boolean = false
   userId?: number
   selectedFile: File = new File([], "")
   displayStyle = "none"
   currentPayment?: PaymentWithImageUrl
+  paymentsWithPayerName: [PaymentWithImageUrl, string][] = []
 
   constructor(
     private backendService: BackendService,
@@ -51,16 +51,32 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   refreshPaymentData(flatId: number) {
-    this.paymentsWithImageUrl = []
-    this.namesOfPayers = []
+    this.paymentsWithPayerName = []
     this.backendService.getPayments(flatId).subscribe(payments => {
       for (let payment of payments) {
+        const paymentWithImage = this.initializePaymentsWithImageUrl(payment)
         this.backendService.getNameOfUser(payment.payerId).subscribe(name => {
-          this.namesOfPayers.push(name)
+          this.paymentsWithPayerName.push([paymentWithImage, name])
+          this.paymentsWithPayerName.sort((first, second) => first[0].id - second[0].id)
         })
-        this.paymentsWithImageUrl = this.imageService.initializePaymentsWithImageUrl(payments)
       }
     })
+  }
+
+  initializePaymentsWithImageUrl(payment: Payment) {
+    return {
+      id: payment.id,
+      flatId: payment.flatId,
+      payerId: payment.payerId,
+      paymentDate: payment.paymentDate,
+      paymentName: payment.paymentName,
+      paymentAmount: payment.paymentAmount,
+      isAcknowledged: payment.isAcknowledged,
+      imageName: payment.imageName,
+      imageContent: payment.imageContent,
+      imageContentType: payment.imageContentType,
+      imageUrl: this.imageService.getEvidenceUrl(payment)
+    }
   }
 
   deletePayment(paymentId: number) {

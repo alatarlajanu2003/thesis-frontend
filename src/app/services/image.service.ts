@@ -60,25 +60,4 @@ export class ImageService {
     }
     return ""
   }
-
-  initializePaymentsWithImageUrl(payments: Payment[]) {
-    const paymentsWithImageUrl: PaymentWithImageUrl[] = []
-    for (let payment of payments) {
-      const paymentWithImageUrl: PaymentWithImageUrl = {
-        id: payment.id,
-        flatId: payment.flatId,
-        payerId: payment.payerId,
-        paymentDate: payment.paymentDate,
-        paymentName: payment.paymentName,
-        paymentAmount: payment.paymentAmount,
-        isAcknowledged: payment.isAcknowledged,
-        imageName: payment.imageName,
-        imageContent: payment.imageContent,
-        imageContentType: payment.imageContentType,
-        imageUrl: this.getEvidenceUrl(payment)
-      }
-      paymentsWithImageUrl.push(paymentWithImageUrl)
-    }
-    return paymentsWithImageUrl
-  }
 }
