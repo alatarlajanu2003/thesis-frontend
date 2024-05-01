@@ -27,7 +27,7 @@ export class ReadingDetailsComponent implements OnInit {
   waterChartOptions: any
   gasChartOptions: any
   electricityChartOptions: any
-  readingsWithUser: [ReadingEnriched, string][] = []
+  readingsWithReaderName: [ReadingEnriched, string][] = []
 
   myTheme = {
     palette: {
@@ -82,15 +82,15 @@ export class ReadingDetailsComponent implements OnInit {
   }
 
   refreshReadingData(flatId: number) {
-    this.readingsWithUser = []
+    this.readingsWithReaderName = []
     this.backendService.getReadings(flatId).subscribe(readings => {
       for (let reading of readings) {
         const readingEnriched = this.initializeReadingWithImageUrl(reading)
         this.backendService.getNameOfUser(reading.readerId).subscribe(name => {
-          this.readingsWithUser.push([readingEnriched, name])
-          this.readingsWithUser.sort((first, second) => first[0].id - second[0].id)
+          this.readingsWithReaderName.push([readingEnriched, name])
+          this.readingsWithReaderName.sort((first, second) => first[0].id - second[0].id)
 
-          this.calculateConsumption(this.readingsWithUser.map(readingWithUser => readingWithUser[0]))
+          this.calculateConsumption(this.readingsWithReaderName.map(readingWithUser => readingWithUser[0]))
           this.initializeCharts()
         })
       }
@@ -131,7 +131,7 @@ export class ReadingDetailsComponent implements OnInit {
   }
 
   getConsumption(readingType: string, month: string, year: string): number {
-    return this.readingsWithUser.map(readingWithUser => readingWithUser[0]).filter(r => {
+    return this.readingsWithReaderName.map(readingWithUser => readingWithUser[0]).filter(r => {
       const readingDate = new Date(r.readingDate).toString().split(' ')
       return readingDate[3] == year && readingDate[1] == month && r.readingName == readingType
     })

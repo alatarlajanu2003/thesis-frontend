@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let reading of readingsWithUser" align='center' class='align-middle'>
+            <tr *ngFor="let reading of readingsWithReaderName" align='center' class='align-middle'>
                 <td>{{reading[0].readingDate | date}}</td>
                 <td>{{reading[0].readingName}}</td>
                 <td>{{reading[0].readingAmount | number:'0.3-3'}} {{getUnit(reading[0].readingName)}}</td>
