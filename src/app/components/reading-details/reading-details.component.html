@@ -18,8 +18,8 @@
             <tr *ngFor="let reading of readingsEnriched; let i = index" align='center' class='align-middle'>
                 <td>{{reading.readingDate | date}}</td>
                 <td>{{reading.readingName}}</td>
-                <td>{{reading.readingAmount}}</td>
-                <td>{{reading.consumption}}</td>
+                <td>{{reading.readingAmount | number:'0.3-3'}} {{getUnit(reading.readingName)}}</td>
+                <td>{{reading.consumption | number:'0.3-3'}} {{getUnit(reading.readingName)}}</td>
                 <td>{{namesOfReaders[i]}}</td>
                 <td>{{reading.isAcknowledged ? "Acknowledged" : "Pending"}}</td>
                 <td>

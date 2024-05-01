@@ -1,4 +1,4 @@
-import { CurrencyPipe, DatePipe, NgFor, NgIf, NgStyle } from '@angular/common'
+import { CurrencyPipe, DatePipe, DecimalPipe, NgFor, NgIf, NgStyle } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, RouterLink } from '@angular/router'
 import { Flat } from '../../interfaces/flat'
@@ -13,7 +13,7 @@ import { AgChartsAngular } from 'ag-charts-angular'
 @Component({
   selector: 'app-reading-details',
   standalone: true,
-  imports: [NgFor, DatePipe, CurrencyPipe, NgIf, RouterLink, NgStyle, AgChartsAngular],
+  imports: [NgFor, DatePipe, CurrencyPipe, NgIf, RouterLink, NgStyle, AgChartsAngular, DecimalPipe],
   templateUrl: './reading-details.component.html'
 })
 export class ReadingDetailsComponent implements OnInit {
@@ -204,6 +204,15 @@ export class ReadingDetailsComponent implements OnInit {
         this.refreshReadingData(this.flatId)
       }
     })
+  }
+
+  getUnit(readingName: string) {
+    switch(readingName){
+      case "Water": return "m³"
+      case "Electricity": return "kWh"
+      case "Gas": return "m³"
+      default: return ''
+    }
   }
 
   openPopup(reading: ReadingEnriched) {
