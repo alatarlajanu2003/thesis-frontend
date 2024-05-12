@@ -11,8 +11,9 @@
             </div><br>
             <b>Tenant(s):</b>
             <div *ngFor="let tenant of tenants" align='right'>
-               <div class='pt-2'> {{tenant.firstName}} {{tenant.lastName}} <button type="button" class="btn-close delete-btn p-0"
-                (click)="deleteTenant(flat?.id, tenant.id)"></button> </div>
+                <div class='pt-2'> {{tenant.firstName}} {{tenant.lastName}}
+                    <button *ngIf='isOwner' type="button" class="btn-close delete-btn p-0" (click)="deleteTenant(flat?.id, tenant.id)"></button>
+                </div>
                 <div class="text-black-50">{{tenant.emailAddress}} {{tenant.phoneNumber}}</div>
             </div>
         </div>
