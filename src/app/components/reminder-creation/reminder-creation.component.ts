@@ -13,16 +13,6 @@ import { NgFor, NgIf } from '@angular/common';
 
 })
 
-// (JsPath \ "flatId").read[Int].orElse(Reads(_ => JsError("Flat id is required!"))) and
-// (JsPath \ "reminderName").read[String].orElse(Reads(_ => JsError("Reminder name is required!")))
-//   .filter(JsonValidationError("Reminder name must be non-empty!"))(_.nonEmpty)
-//   .filter(JsonValidationError("Reminder name must be no longer than 28 characters!"))(_.length <= 28) and
-// (JsPath \ "dayOfMonth").read[Int].orElse(Reads(_ => JsError("Day of month is required!")))
-//   .filter(JsonValidationError("Day of month must be between 1 and 28!"))(day => day >= 1 && day <= 28) and
-// (JsPath \ "monthFrequency").read[Int].orElse(Reads(_ => JsError("Month frequency is required!")))
-//   .filter(JsonValidationError("Month frequency must be between 1 and 12!"))(monthFrequency => monthFrequency >= 1 && monthFrequency <= 12)
-// )(ReminderCreationRequest.apply _)
-
 export class ReminderCreationComponent {
 
   flatId?: number
@@ -72,7 +62,7 @@ export class ReminderCreationComponent {
   }
 
   initiatePossibleDaysOfMonth() {
-    for (let i = 1; i < 28; i++) {
+    for (let i = 1; i < 29; i++) {
       this.possibleDaysOfMonth.push(i)
     }
   }
