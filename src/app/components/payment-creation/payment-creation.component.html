@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="form-outline form-white mb-4">
-                  <input type="number" min='0' class="form-control form-control-lg" formControlName="paymentAmount"
+                  <input type="number" min='1' class="form-control form-control-lg" formControlName="paymentAmount"
                     placeholder='Payment amount' />
                   <div *ngIf="paymentAmount?.touched || paymentAmount?.dirty">
                     <div class="p-0 text-danger" *ngIf="paymentAmount?.errors?.['required']">
