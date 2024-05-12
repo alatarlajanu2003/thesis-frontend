@@ -216,11 +216,13 @@ export class ReadingDetailsComponent implements OnInit {
   }
 
   acknowledgeReadingEvidence(readingId: number) {
-    this.backendService.acknowledgeReadingEvidence(readingId).subscribe(() => {
-      if (this.flatId) {
-        this.refreshReadingData(this.flatId)
-      }
-    })
+    if (confirm("Are you sure you want to acknowledge this reading evidence?")) {
+      this.backendService.acknowledgeReadingEvidence(readingId).subscribe(() => {
+        if (this.flatId) {
+          this.refreshReadingData(this.flatId)
+        }
+      })
+    }
   }
 
   getUnit(readingName: string) {

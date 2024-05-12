@@ -108,11 +108,13 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   acknowledgePaymentEvidence(paymentId: number) {
-    this.backendService.acknowledgePaymentEvidence(paymentId).subscribe(() => {
-      if (this.flatId) {
-        this.refreshPaymentData(this.flatId)
-      }
-    })
+    if (confirm("Are you sure you want to acknowledge this payment evidence?")) {
+      this.backendService.acknowledgePaymentEvidence(paymentId).subscribe(() => {
+        if (this.flatId) {
+          this.refreshPaymentData(this.flatId)
+        }
+      })
+    }
   }
 
   openPopup(payment: PaymentWithImageUrl) {
