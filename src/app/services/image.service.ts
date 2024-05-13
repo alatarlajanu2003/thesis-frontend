@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BackendService } from './backend.service';
 import { Payment } from '../interfaces/payment';
-import { PaymentWithImageUrl } from '../interfaces/payment-with-image-url';
-import { EvidenceUploadRequest } from '../interfaces/requests/evidence-upload-request';
 import { Reading } from '../interfaces/reading';
-import { ReadingEnriched } from '../interfaces/reading-enriched';
+import { EvidenceUploadRequest } from '../interfaces/requests/evidence-upload-request';
+import { BackendService } from './backend.service';
 
 @Injectable({
   providedIn: 'root'

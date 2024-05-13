@@ -23,15 +23,15 @@
                 <td>{{reading[1]}}</td>
                 <td>{{reading[0].isAcknowledged ? "Acknowledged" : "Pending"}}</td>
                 <td>
-                    <input *ngIf="reading[0].readerId == userId && !reading[0].imageUrl" type="file" (change)="onFileSelected($event)" style='margin-left: 70px'>
-                    <a *ngIf="reading[0].imageUrl"(click)="openPopup(reading[0])" style='cursor: pointer;'>{{reading[0].imageName}}</a>
+                    <input *ngIf="reading[0].readerId == userId && !reading[0].imageName" type="file" (change)="onFileSelected($event)" style='margin-left: 70px'>
+                    <a *ngIf="reading[0].imageName" (click)="openPopup(reading[0])" style='cursor: pointer;'>{{reading[0].imageName}}</a>
                 </td>
                 <td *ngIf="!isOwner" align='center'>
-                    <button *ngIf="reading[0].readerId == userId && !reading[0].imageUrl" class="btn btn-dark" type="submit" (click)="uploadReadingEvidence(reading[0].id)">Upload</button>
-                    <button *ngIf="reading[0].readerId == userId && reading[0].imageUrl" class="btn btn-dark" type="submit" (click)="deleteReadingEvidence(reading[0].id)">Delete</button>
+                    <button *ngIf="reading[0].readerId == userId && !reading[0].imageName" class="btn btn-dark" type="submit" (click)="uploadReadingEvidence(reading[0].id)">Upload</button>
+                    <button *ngIf="reading[0].readerId == userId && reading[0].imageName" class="btn btn-dark" type="submit" (click)="deleteReadingEvidence(reading[0].id)">Delete</button>
                 </td>
                 <td>
-                    <div (click)='acknowledgeReadingEvidence(reading[0].id)' *ngIf='isOwner && !reading[0].isAcknowledged && reading[0].imageUrl' style='cursor: pointer;'><i class="bi bi-check" style='font-size: 25px;'></i></div>
+                    <div (click)='acknowledgeReadingEvidence(reading[0].id)' *ngIf='isOwner && !reading[0].isAcknowledged && reading[0].imageName' style='cursor: pointer;'><i class="bi bi-check" style='font-size: 25px;'></i></div>
                     <div (click)='deleteReading(reading[0].id)' *ngIf="!isOwner && reading[0].readerId == userId" style='cursor: pointer;' align='center'><i class="bi bi-trash" style='font-size: 25px;'></i></div>
                 </td>
             </tr>
@@ -54,7 +54,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <img src={{currentReading?.imageUrl}} style="max-width: 100%" alt="">
+                <img src={{currentImageUrl}} style="max-width: 100%" alt="">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" (click)="closePopup()">

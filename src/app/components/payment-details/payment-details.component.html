@@ -21,17 +21,17 @@
                 <td>{{payment[1]}}</td>
                 <td>{{payment[0].isAcknowledged ? "Acknowledged" : "Pending"}}</td>
                 <td>
-                    <input *ngIf="payment[0].payerId == userId && !payment[0].imageUrl" type="file" (change)="onFileSelected($event)" style='margin-left: 70px'>
-                    <a (click)="openPopup(payment[0])" style='cursor: pointer;'>{{payment[0].imageName}}</a>
+                    <input *ngIf="payment[0].payerId == userId && !payment[0].imageName" type="file" (change)="onFileSelected($event)" style='margin-left: 70px'>
+                    <a *ngIf="payment[0].imageName" (click)="openPopup(payment[0])" style='cursor: pointer;'>{{payment[0].imageName}}</a>
                 </td>
                 <td *ngIf="!isOwner" align='center'>
-                    <button *ngIf="payment[0].payerId == userId && !payment[0].imageUrl" class="btn btn-dark" type="submit" (click)="uploadPaymentEvidence(payment[0].id)">Upload</button>
-                    <button *ngIf="payment[0].payerId == userId && payment[0].imageUrl" class="btn btn-dark" type="submit" (click)="deletePaymentEvidence(payment[0].id)">Delete</button>
+                    <button *ngIf="payment[0].payerId == userId && !payment[0].imageName" class="btn btn-dark" type="submit" (click)="uploadPaymentEvidence(payment[0].id)">Upload</button>
+                    <button *ngIf="payment[0].payerId == userId && payment[0].imageName" class="btn btn-dark" type="submit" (click)="deletePaymentEvidence(payment[0].id)">Delete</button>
                 </td>
                 <td>
                     <div *ngIf="isOwner; then thenBlock else elseBlock"></div>
                     <ng-template #thenBlock>
-                        <div (click)='acknowledgePaymentEvidence(payment[0].id)' *ngIf='!payment[0].isAcknowledged && payment[0].imageUrl' style='cursor: pointer;'><i class="bi bi-check" style='font-size: 25px;'></i></div>
+                        <div (click)='acknowledgePaymentEvidence(payment[0].id)' *ngIf='!payment[0].isAcknowledged && payment[0].imageName' style='cursor: pointer;'><i class="bi bi-check" style='font-size: 25px;'></i></div>
                     </ng-template>
                     <ng-template #elseBlock>
                         <div (click)='deletePayment(payment[0].id)' *ngIf="payment[0].payerId == userId" style='cursor: pointer;' align='center'><i class="bi bi-trash" style='font-size: 25px;'></i></div>
@@ -51,7 +51,7 @@
         overflow: auto;'>
             <div class="modal-body" style='width: fit-content;
             overflow: auto;'>
-                <img src={{currentPayment?.imageUrl}} style="width: 100%;" alt="">
+                <img src={{currentImageUrl}} style="width: 100%;" alt="">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" (click)="closePopup()">

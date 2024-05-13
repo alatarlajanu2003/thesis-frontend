@@ -9,6 +9,5 @@ export interface ReadingEnriched {
     imageName: string,
     imageContent: ArrayBuffer,
     imageContentType: string,
-    imageUrl: string,
     consumption: number
 }

@@ -28,6 +28,7 @@ export class ReadingDetailsComponent implements OnInit {
   gasChartOptions: any
   electricityChartOptions: any
   readingsWithReaderName: [ReadingEnriched, string][] = []
+  currentImageUrl: string = ""
 
   myTheme = {
     palette: {
@@ -85,7 +86,7 @@ export class ReadingDetailsComponent implements OnInit {
     this.readingsWithReaderName = []
     this.backendService.getReadings(flatId).subscribe(readings => {
       for (let reading of readings) {
-        const readingEnriched = this.initializeReadingWithImageUrl(reading)
+        const readingEnriched = this.initializeReadingWithConsumption(reading)
         this.backendService.getNameOfUser(reading.readerId).subscribe(name => {
           this.readingsWithReaderName.push([readingEnriched, name])
           this.readingsWithReaderName.sort((first, second) => first[0].id - second[0].id)
@@ -97,7 +98,7 @@ export class ReadingDetailsComponent implements OnInit {
     })
   }
 
-  initializeReadingWithImageUrl(reading: Reading): ReadingEnriched {
+  initializeReadingWithConsumption(reading: Reading): ReadingEnriched {
     return {
       id: reading.id,
       flatId: reading.flatId,
@@ -109,7 +110,6 @@ export class ReadingDetailsComponent implements OnInit {
       imageName: reading.imageName,
       imageContent: reading.imageContent,
       imageContentType: reading.imageContentType,
-      imageUrl: this.imageService.getEvidenceUrl(reading),
       consumption: 0
     }
   }
@@ -234,9 +234,12 @@ export class ReadingDetailsComponent implements OnInit {
     }
   }
 
-  openPopup(reading: ReadingEnriched) {
-    this.currentReading = reading
-    this.displayStyle = "block"
+  openPopup(reading: Reading) {
+    this.backendService.getReadingEvidence(reading.id).subscribe(evidence => {
+      reading.imageContent = evidence
+      this.currentImageUrl = this.imageService.getEvidenceUrl(reading)
+      this.displayStyle = "block"
+    })
   }
 
   closePopup() {

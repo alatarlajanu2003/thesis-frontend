@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 import { Flat } from '../interfaces/flat';
 import { Payment } from '../interfaces/payment';
 import { Reading } from '../interfaces/reading';
+import { Reminder } from '../interfaces/reminder';
 import { AcceptInvitationRequest } from '../interfaces/requests/accept-invitation-request';
+import { EvidenceUploadRequest } from '../interfaces/requests/evidence-upload-request';
 import { FlatCreationRequest } from '../interfaces/requests/flat-creation-request';
 import { InvitationRequest } from '../interfaces/requests/invitation-request';
 import { LoginRequest } from '../interfaces/requests/login-request';
-import { RegistrationRequest } from '../interfaces/requests/registration-request';
-import { User } from '../interfaces/user';
-import { UpdateUserRequest } from '../interfaces/requests/update-user-request';
 import { PaymentCreationRequest } from '../interfaces/requests/payment-creation-request';
-import { EvidenceUploadRequest } from '../interfaces/requests/evidence-upload-request';
 import { ReadingCreationRequest } from '../interfaces/requests/reading-creation-request';
-import { Reminder } from '../interfaces/reminder';
+import { RegistrationRequest } from '../interfaces/requests/registration-request';
 import { ReminderCreationRequest } from '../interfaces/requests/reminder-creation-request';
+import { UpdateUserRequest } from '../interfaces/requests/update-user-request';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -113,6 +113,10 @@ export class BackendService {
     return this.httpClient.delete(`${this.baseUrl}/deletePaymentEvidence/${paymentId}`)
   }
 
+  getPaymentEvidence(paymentId: number) {
+    return this.httpClient.get<ArrayBuffer>(`${this.baseUrl}/getPaymentEvidence/${paymentId}`)
+  }
+
   acknowledgePaymentEvidence(paymentId: number) {
     return this.httpClient.post(`${this.baseUrl}/acknowledgePaymentEvidence/${paymentId}`, null)
   }
@@ -131,6 +135,10 @@ export class BackendService {
 
   deleteReadingEvidence(readingId: number) {
     return this.httpClient.delete(`${this.baseUrl}/deleteReadingEvidence/${readingId}`)
+  }
+
+  getReadingEvidence(readingId: number) {
+    return this.httpClient.get<ArrayBuffer>(`${this.baseUrl}/getReadingEvidence/${readingId}`)
   }
 
   acknowledgeReadingEvidence(readingId: number) {
