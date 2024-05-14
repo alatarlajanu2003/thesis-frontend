@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Flat } from '../../interfaces/flat';
 import { BackendService } from '../../services/backend.service';
 import { AuthService } from '../../services/auth.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { User } from '../../interfaces/user';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, RouterLink],
+  imports: [NgFor, RouterLink, NgIf],
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {

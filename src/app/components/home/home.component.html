@@ -40,6 +40,7 @@
             <div class="card-body">
                 <div class="card-text">
                     <b>Tenant(s):</b>
+                    <div *ngIf='ownedFlatWithTenants[1].length == 0'>No tenants</div>  
                     <div *ngFor="let tenant of ownedFlatWithTenants[1]">
                         {{tenant.firstName}} {{tenant.lastName}}
                     </div>
