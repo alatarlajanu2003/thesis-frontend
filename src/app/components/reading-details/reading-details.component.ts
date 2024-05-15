@@ -120,7 +120,6 @@ export class ReadingDetailsComponent implements OnInit {
     this.waterChartOptions.data = []
     this.gasChartOptions.data = []
     this.electricityChartOptions.data = []
-    console.log("here")
     let currentYear = new Date().getFullYear().toString()
 
     for (let month of months) {
