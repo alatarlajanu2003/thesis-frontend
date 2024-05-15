@@ -94,8 +94,8 @@ export class UserDetailsComponent implements OnInit {
         phoneNumber: this.userDetailsForm.value.phoneNumber,
         preferredLanguage: this.userDetailsForm.value.preferredLanguage
       }
-      this.backendService.updateUser(updateRequest, this.authService.getUserId()).subscribe(() => {
-
+      this.backendService.updateUser(updateRequest, this.authService.getUserId()).subscribe(_ => {
+        window.location.reload()
       })
     }
   }
