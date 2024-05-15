@@ -189,7 +189,7 @@ export class ReadingDetailsComponent implements OnInit {
 
   deleteReading(readingId: number) {
     if (confirm("Are you sure you want to delete this reading?")) {
-      this.backendService.deleteReading(readingId).subscribe(() => {
+      this.backendService.deleteReading(readingId).subscribe(_ => {
         if (this.flatId) {
           this.refreshReadingData(this.flatId)
         }
@@ -207,7 +207,7 @@ export class ReadingDetailsComponent implements OnInit {
 
   deleteReadingEvidence(readingId: number) {
     if (confirm("Are you sure you want to delete this reading evidence?")) {
-      this.backendService.deleteReadingEvidence(readingId).subscribe(() => {
+      this.backendService.deleteReadingEvidence(readingId).subscribe(_ => {
         if (this.flatId) {
           this.refreshReadingData(this.flatId)
         }
@@ -217,7 +217,7 @@ export class ReadingDetailsComponent implements OnInit {
 
   acknowledgeReadingEvidence(readingId: number) {
     if (confirm("Are you sure you want to acknowledge this reading evidence?")) {
-      this.backendService.acknowledgeReadingEvidence(readingId).subscribe(() => {
+      this.backendService.acknowledgeReadingEvidence(readingId).subscribe(_ => {
         if (this.flatId) {
           this.refreshReadingData(this.flatId)
         }

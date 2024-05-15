@@ -64,7 +64,7 @@ export class PaymentDetailsComponent implements OnInit {
 
   deletePayment(paymentId: number) {
     if (confirm("Are you sure you want to delete this payment?")) {
-      this.backendService.deletePayment(paymentId).subscribe(() => {
+      this.backendService.deletePayment(paymentId).subscribe(_ => {
         if (this.flatId) {
           this.refreshPaymentData(this.flatId)
         }
@@ -82,7 +82,7 @@ export class PaymentDetailsComponent implements OnInit {
 
   deletePaymentEvidence(paymentId: number) {
     if (confirm("Are you sure you want to delete this payment evidence?")) {
-      this.backendService.deletePaymentEvidence(paymentId).subscribe(() => {
+      this.backendService.deletePaymentEvidence(paymentId).subscribe(_ => {
         if (this.flatId) {
           this.refreshPaymentData(this.flatId)
         }
@@ -92,7 +92,7 @@ export class PaymentDetailsComponent implements OnInit {
 
   acknowledgePaymentEvidence(paymentId: number) {
     if (confirm("Are you sure you want to acknowledge this payment evidence?")) {
-      this.backendService.acknowledgePaymentEvidence(paymentId).subscribe(() => {
+      this.backendService.acknowledgePaymentEvidence(paymentId).subscribe(_ => {
         if (this.flatId) {
           this.refreshPaymentData(this.flatId)
         }

@@ -26,7 +26,6 @@ export class AcceptInvitationComponent implements OnInit {
           error: err => this.router.navigate(['/home'])
         })
       } else {
-        console.log("Need to be logged in to accept invitations!")
         this.router.navigate(["/login"])
       }
     })

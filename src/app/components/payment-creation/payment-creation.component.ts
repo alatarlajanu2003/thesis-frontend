@@ -52,7 +52,7 @@ export class PaymentCreationComponent implements OnInit {
         paymentName: this.paymentCreationForm.value.paymentName,
         paymentAmount: Number(this.paymentCreationForm.value.paymentAmount)
       }
-      this.backendService.createPayment(paymentCreationRequest).subscribe(() => {
+      this.backendService.createPayment(paymentCreationRequest).subscribe(_ => {
         this.router.navigate([`/payment-details/${this.flatId}`])
       })
     }

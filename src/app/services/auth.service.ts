@@ -46,7 +46,7 @@ export class AuthService {
 
     interval(1000)
       .pipe(takeUntil(unsubscribe))
-      .subscribe(() => {
+      .subscribe(_ => {
         if (this.jwtHelper.isTokenExpired(this.getToken())) {
           this.tokenExpirationSubject.next(true)
           unsubscribe.next()

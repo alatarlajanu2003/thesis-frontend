@@ -89,7 +89,7 @@ export class RegistrationComponent {
         password: this.registrationForm.value.password,
         preferredLanguage: this.registrationForm.value.preferredLanguage
       }
-      this.backendService.register(registrationRequest).subscribe(() => {
+      this.backendService.register(registrationRequest).subscribe(_ => {
         this.router.navigate(['/login'])
       })
     }

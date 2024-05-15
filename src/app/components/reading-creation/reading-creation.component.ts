@@ -52,7 +52,7 @@ export class ReadingCreationComponent implements OnInit {
         readingName: this.readingCreationForm.value.readingName,
         readingAmount: Number(this.readingCreationForm.value.readingAmount)
       }
-      this.backendService.createReading(readingCreationRequest).subscribe(() => {
+      this.backendService.createReading(readingCreationRequest).subscribe(_ => {
         this.router.navigate([`/reading-details/${this.flatId}`])
       })
     }

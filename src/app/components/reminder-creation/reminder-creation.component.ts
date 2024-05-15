@@ -80,7 +80,7 @@ export class ReminderCreationComponent {
         dayOfMonth: Number(this.reminderCreationForm.value.dayOfMonth),
         monthFrequency: Number(this.reminderCreationForm.value.monthFrequency)
       }
-      this.backendService.createReminder(reminderCreationRequest).subscribe(() => {
+      this.backendService.createReminder(reminderCreationRequest).subscribe(_ => {
         this.router.navigate([`/reminder-details/${this.flatId}`])
       })
     }

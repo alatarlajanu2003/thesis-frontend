@@ -29,7 +29,7 @@ export class ImageService {
         imageContentType: file.type
       }
 
-      this.backendService.uploadPaymentEvidence(paymentEvidenceUploadRequest, paymentId).subscribe(() => {
+      this.backendService.uploadPaymentEvidence(paymentEvidenceUploadRequest, paymentId).subscribe(_ => {
         window.location.reload()
       })
     }
@@ -45,7 +45,7 @@ export class ImageService {
         imageContentType: file.type
       }
 
-      this.backendService.uploadReadingEvidence(readingEvidenceUploadRequest, readingId).subscribe(() => {
+      this.backendService.uploadReadingEvidence(readingEvidenceUploadRequest, readingId).subscribe(_ => {
         window.location.reload()
       })
     }

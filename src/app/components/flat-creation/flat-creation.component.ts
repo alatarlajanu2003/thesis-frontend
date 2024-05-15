@@ -64,8 +64,7 @@ export class FlatCreationComponent {
         postalCode: this.flatCreationForm.value.postalCode,
         address: this.flatCreationForm.value.address
       }
-      this.backendService.createFlat(flatCreationRequest).subscribe(response => {
-        console.log(response)
+      this.backendService.createFlat(flatCreationRequest).subscribe(_ => {
         this.router.navigate(['/home'])
       })
     }

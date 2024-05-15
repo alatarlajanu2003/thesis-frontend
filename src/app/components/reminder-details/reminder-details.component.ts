@@ -62,7 +62,7 @@ export class ReminderDetailsComponent implements OnInit {
 
   deleteReminder(reminderId: number) {
     if (confirm("Are you sure you want to delete this reminder?")) {
-      this.backendService.deleteReminder(reminderId).subscribe(() => {
+      this.backendService.deleteReminder(reminderId).subscribe(_ => {
         if (this.flatId) {
           this.refreshReminderData(this.flatId)
         }

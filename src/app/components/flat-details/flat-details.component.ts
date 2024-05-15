@@ -113,9 +113,7 @@ export class FlatDetailsComponent implements OnInit {
         flatId: this.flatId,
         emailAddress: this.invitationForm.value.emailAddress
       }
-      this.backendService.invite(invitationRequest).subscribe(response => {
-        console.log(response)
-      })
+      this.backendService.invite(invitationRequest).subscribe(_ => {})
     }
   }
 }
