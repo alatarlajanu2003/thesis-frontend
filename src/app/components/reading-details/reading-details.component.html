@@ -51,10 +51,13 @@
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <img src={{currentImageUrl}} style="max-width: 100%" alt="">
+    <div class="modal-dialog" role="document" style='width: fit-content;
+    overflow: auto;'>
+        <div class="modal-content" style='width: fit-content;
+        overflow: auto;'>
+            <div class="modal-body" style='width: fit-content;
+            overflow: auto;'>
+                <img src={{currentImageUrl}} style="width: 100%;" alt="">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" (click)="closePopup()">
