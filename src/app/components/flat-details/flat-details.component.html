@@ -20,21 +20,21 @@
         </div>
         <div class="col border border-secondary p-4 bg-light" style="margin: 5px">
             <b>Payments:</b>
-            <div *ngFor="let payment of payments | slice:0:3" align='right'>
+            <div *ngFor="let payment of payments | slice:-3" align='right'>
                 {{payment.paymentDate | date}} {{payment.paymentName}}
             </div>
             <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark"
                     [routerLink]="['/payment-details', flatId]">See more</button></div>
             <br>
             <b>Readings:</b>
-            <div *ngFor="let reading of readings | slice:0:3" align='right'>
+            <div *ngFor="let reading of readings | slice:-3" align='right'>
                 {{reading.readingDate | date}} {{reading.readingName}}
             </div>
             <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark"
                     [routerLink]="['/reading-details', flatId]">See more</button></div>
             <br>
             <b>Reminders:</b>
-            <div *ngFor="let reminder of reminders | slice:0:3" align='right'>
+            <div *ngFor="let reminder of reminders | slice:-3" align='right'>
                 {{reminder.reminderFrequency}} - {{reminder.reminderName}}
             </div>
             <div align='right' class='pb-0 mb-0 mt-2'><button class="btn btn-dark"
